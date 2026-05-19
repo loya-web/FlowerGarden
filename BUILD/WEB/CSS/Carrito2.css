@@ -1,0 +1,88 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-image: url("../Imagenes/Fondo.png");
+    background-size: 100% auto;
+    background-attachment: fixed;
+    color: #2f3e2f;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+header{
+    background: #3f6b3a;
+    padding: 12px 0;
+}
+
+header nav{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav a{
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main h2{
+    text-align: center;
+    margin-top: 40px;
+    font-size: 26px;
+    color: #2f3e2f;
+}
+
+main{
+    margin-bottom: 300px;
+}
+
+main div{
+    width: 85%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border: 2px solid #3f6b3a;
+    
+}
+
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 17px;
+}
+
+table thead{
+    background: #3f6b3a;
+    color: white;
+}
+
+table th, table td{
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #3f6b3a;
+    color: white;
+  
+}

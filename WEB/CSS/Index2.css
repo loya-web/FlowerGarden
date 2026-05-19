@@ -1,0 +1,160 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url("../Imagenes/Fondo.png")  ;  
+    background-size: 100% auto;
+    background-attachment: fixed;
+    color: #2f3e2f;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+header {
+    background: #3f6b3a; 
+    padding: 15px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+}
+
+nav p, nav a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.superior {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    gap: 40px;
+}
+
+section[class="s1"] {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+
+}
+
+section[class="s1"] p {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+
+aside {
+    width: 350px;
+    background-color:white;
+    padding: 25px;
+    border-radius: 12px;
+
+}
+
+aside form p {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+label {
+    font-size: 16px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color:#dff5d8;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #3f6b3a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background: #31582d;
+}
+
+button a {
+    text-decoration: none;
+    color: white;
+}
+
+aside a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #3f6b3a;
+    text-decoration: none;
+}
+
+aside a:hover {
+    text-decoration: underline;
+}
+
+
+.inferior {
+    margin-top: 30px;
+    padding: 40px;
+}
+
+section[class="s2"] .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.grid div {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.grid p:first-child {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.grid img {
+    width: 90px;
+    margin-top: 15px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #3f6b3a;
+    color: white;
+    margin-top: 40px;
+}

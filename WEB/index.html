@@ -1,0 +1,92 @@
+
+<html>
+    <head>
+        <title>Flower Garden</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="CSS/Index2.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" href="planta.png" type="image/x-icon"/>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+
+                <img src="Imagenes/Flor.png" alt="Logo" width="50" height="50"/>
+                <p><b>Flower Garden</b></p>
+                
+                <a href="JSP/ContactoVendedor.jsp">
+                    <img src="Imagenes/Telefono.png" alt="Telefono" width="50" height="50" />
+                </a>
+
+            </nav>
+        </header>
+
+        <main>
+            <div class="superior">
+                <section class="s1">
+
+                    <h1>Bienvenido a Flower Garden</h1>
+                    <br>
+                    <p>Gestiona inventario, ventas y clientes de tu negocio de plantas y jardinería. </p>
+                    <p>Accede como cliente o vendedor para comenzar.</p>
+
+                </section>
+                <aside>
+                    <h2>Acceder</h2>
+                    <br>
+                    <form action="InicioCliente.html">
+                        <button type="submit">Cliente</button> 
+                    </form>
+                    <br>
+                    <form action="InicioVendedor.html">
+                        <button type="submit">Vendedor</button> 
+                    </form>
+                    <!--
+                    <form action="JSP/IniciarSesion.jsp">
+                        <p>Acceder</p>
+
+                        <label for="usuario">Usuario:</label>
+                        <input type="text" id="usuario" name="usuario" required>
+
+                        <br>
+                        <label for="contraseña">Contraseña:</label>
+                        <input type="password" id="contraseña" name="contraseña" required>
+
+                        <br>
+                        <button type="submit">Iniciar Sesión</button>
+                        <a href="Registro.html">¿No tienes cuenta? ¡Regístrate!</a>
+                    </form>
+                    -->
+                </aside>
+            </div>
+
+            <div class="inferior">
+                <section class="s2">
+
+                    <div class="grid">
+                        <div >
+                            <p>Gestionar inventario</p>
+                            <p>Agregar, editar y eliminar productos (vendedores).</p>
+                            <img src="Imagenes/Caja.png" alt=""/></div>
+                        <div >
+                            <p>Comprar en línea</p>
+                            <p>Explora catálogo, añade al carrito y finaliza compra (clientes).</p>
+                            <img src="Imagenes/Carrito1.png" alt=""/></div>
+                        <div >
+
+                            <p>Reseñas</p>
+                            <p>Clientes dejan reseñas; los vendedores las consultan.</p>
+                            <img src="Imagenes/Reseña.png" alt=""/></div>
+
+                    </div>
+
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            &COPY; Flower Garden - Gestión de plantas y jardinería
+        </footer>
+    </body>
+</html>

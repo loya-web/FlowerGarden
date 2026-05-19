@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url("../Imagenes/Fondo.png");
+    background-size: 100% auto;
+    background-attachment: fixed;
+    color: #2f3e2f;
+    
+    
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main{
+    flex-grow: 1;
+}
+
+header {
+    background: #3f6b3a; 
+    padding: 15px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+}
+
+nav p, nav a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+    
+}
+.nom{
+    text-align: center;
+}
+.info{
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.info p{
+    font-size: 20px;
+    
+}
+
+.options{
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.options a, .options p{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2f3e2f;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+    text-align:center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #3f6b3a;
+    color: white;
+    margin-top: 40px;
+}

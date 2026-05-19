@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url("../Imagenes/Fondo.png");
+    background-size: 100% auto;
+    background-attachment: fixed;
+    color: #2f3e2f;
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+header {
+    background: #2F5D2F;
+    padding: 15px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+}
+
+nav p, nav a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+
+main {
+    background-color: #F5F5F5;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #2F5D2F;    
+}
+
+main h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+table thead{
+    background: #3f6b3a;
+    color: white;
+}
+
+table th, table td{
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+table td {
+    background-color: #ffffff;  
+}
+
+table td a{
+    display: block;
+    color: #3f6b3a;
+    text-decoration: none;
+}
+
+table td a:hover {
+    text-decoration: underline;
+}
+
+
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #2F5D2F;
+    color: white;
+
+}
