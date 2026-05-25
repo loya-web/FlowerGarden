@@ -19,7 +19,7 @@
                 ResultSet rs = null;
                 boolean valido = false;
                 
-                sta = con.prepareStatement("SELECT * FROM cliente WHERE nombre = ? AND contrasena = ?");
+                sta = con.prepareStatement("SELECT * FROM Cliente WHERE nombre = ? AND contrasena = ?");
                 
                 sta.setString(1, nombre);
                 sta.setString(2, contrasena);
