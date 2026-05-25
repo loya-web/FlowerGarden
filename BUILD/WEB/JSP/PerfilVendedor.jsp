@@ -80,21 +80,25 @@
                     <p>Registrar Producto</p>
                     <img src="../Imagenes/Carrito1.png" alt="Carrito" width="150" height="150"/>
                 </a>
-
+                
+                <!--
                 <a href="../JSP/ConsultaVendedor.jsp?idVendedor=<%=idVendedor%>">
                     <p>Consulta de Datos</p>
                     <img src="../Imagenes/Lupa.png" alt="Lupa" width="150" height="150"/>
                 </a>
+                -->
 
                 <a href="../JSP/CambioVendedor.jsp?idVendedor=<%=idVendedor%>">
                     <p>Cambio de Datos</p>
                     <img src="../Imagenes/Cambio.png" alt="Cambio" width="150" height="150"/>
                 </a>
-
+                
+                <!--
                 <a href="../JSP/BajaVendedor.jsp?idVendedor=<%=idVendedor%>">
                     <p>Eliminar cuenta</p>
                     <img src="../Imagenes/Baja.png" alt="Baja" width="150" height="150"/>
                 </a>
+                -->
 
                 <a href="../JSP/ConsultarVentas.jsp">
                     <p>Consultar Ventas</p>

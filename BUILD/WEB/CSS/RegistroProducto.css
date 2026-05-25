@@ -1,81 +1,351 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+/* ===================================================== */
+/* === FLOWER GARDEN - REGISTRO DE PRODUCTOS =========== */
+/* ===================================================== */
+
+/* ================= VARIABLES ================= */
+
+:root{
+
+    --green-100:#e9f7ef;
+    --green-200:#d2f0dc;
+    --green-300:#a8e2b8;
+    --green-400:#7ed694;
+    --green-500:#4cc86f;
+    --green-600:#3ead57;
+    --green-700:#2f8a47;
+
+    --white:#ffffff;
+
+    --text:#163223;
+    --muted:#607064;
+
+    --shadow:0 10px 28px rgba(19,50,35,0.10);
+
+    --radius:26px;
+
+    --transition:220ms ease;
 }
+
+/* ================= RESET ================= */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+    font-family:"Segoe UI",sans-serif;
+}
+
+/* ================= BODY ================= */
 
 body{
-    background-image: url("../Imagenes/Fondo.png");
-    background-size: 100% auto;
-    color: #2f3e2f;
-    
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--green-100) 0%,
+            #f7fff9 45%,
+            var(--white) 100%
+        );
+
+    color:var(--text);
 }
 
+/* ================= MAIN ================= */
 
 main{
-    flex-grow: 1;
-    display: grid;
-    place-content: center;
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:3rem 1rem;
 }
+
+/* ================= TARJETA ================= */
 
 section{
-    width: 400px;
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    margin: 10px;
-    
+
+    width:100%;
+
+    max-width:550px;
+
+    background:rgba(255,255,255,0.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:32px;
+
+    padding:3rem;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeIn 0.4s ease;
 }
 
-section p{
-    font-size: 24px;
-    margin-bottom: 25px;
-    font-weight: bold;
-    color: #3b5e3b;
-    text-align: center;
+/* ================= TITULO ================= */
+
+section p:first-child{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:var(--green-700);
+
+    text-align:center;
+
+    margin-bottom:2rem;
 }
+
+/* ================= FORMULARIO ================= */
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1.2rem;
+}
+
+/* ================= LABELS ================= */
 
 form label{
-    font-weight: bold;
-    font-size: 15px;
-    color: #2f4a2f;
+
+    font-weight:600;
+
+    color:var(--green-700);
+
+    margin-bottom:0.4rem;
+
+    display:block;
 }
 
+/* ================= INPUTS ================= */
 
 form input{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color:#dff5d8;
+
+    width:100%;
+
+    padding:0.95rem 1rem;
+
+    border-radius:14px;
+
+    border:1px solid #d8e6dc;
+
+    background:#f8fff9;
+
+    font-size:1rem;
+
+    color:var(--text);
+
+    transition:all var(--transition);
 }
+
+/* ================= FOCUS ================= */
+
+form input:focus{
+
+    outline:none;
+
+    border-color:var(--green-400);
+
+    box-shadow:
+        0 0 0 4px rgba(76,200,111,0.15);
+}
+
+form textarea{
+
+    width:100%;
+
+    padding:1rem;
+
+    border-radius:14px;
+
+    border:1px solid #d8e6dc;
+
+    background:#f8fff9;
+
+    font-size:1rem;
+
+    resize:vertical;
+
+    min-height:120px;
+
+    transition:all var(--transition);
+}
+
+form textarea:focus{
+
+    outline:none;
+
+    border-color:var(--green-400);
+
+    box-shadow:
+        0 0 0 4px rgba(76,200,111,0.15);
+}
+
+/* ================= DESCRIPCION ================= */
+
+#descripcion{
+
+    min-height:90px;
+}
+
+/* ================= BOTON ================= */
 
 form button{
-    
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background: #3f6b3a;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 10px;
 
+    width:100%;
+
+    padding:1rem;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-500),
+            var(--green-700)
+        );
+
+    color:var(--white);
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:all var(--transition);
+
+    margin-top:1rem;
+
+    box-shadow:
+        0 8px 20px rgba(62,173,87,0.20);
 }
 
+/* ================= HOVER BOTON ================= */
+
+form button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 14px 28px rgba(62,173,87,0.28);
+}
+
+/* ================= FOOTER ================= */
 
 footer{
-    text-align: center;
-    padding: 30px;
-    background: #3f6b3a;
-    color: white;
+
+    text-align:center;
+
+    padding:1.2rem;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green-600),
+            var(--green-700)
+        );
+
+    color:var(--white);
+
+    margin-top:auto;
+}
+
+/* ================= ANIMACION ================= */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:650px){
+
+    section{
+
+        padding:2rem;
+    }
+
+    section p:first-child{
+
+        font-size:1.6rem;
+    }
+}
+
+@media(max-width:480px){
+
+    section{
+
+        padding:1.5rem;
+    }
+
+    form input{
+
+        padding:0.85rem;
+    }
+    form textarea{
+
+        width:100%;
+
+        padding:1rem;
+
+        border-radius:14px;
+
+        border:1px solid #d8e6dc;
+
+        background:#f8fff9;
+
+        font-size:1rem;
+
+        resize:vertical;
+
+        min-height:120px;
+
+        transition:all var(--transition);
+    }
+
+    form textarea:focus{
+
+        outline:none;
+
+        border-color:var(--green-400);
+
+        box-shadow:
+            0 0 0 4px rgba(76,200,111,0.15);
+    }
+
+    form button{
+
+        padding:0.9rem;
+    }
 }

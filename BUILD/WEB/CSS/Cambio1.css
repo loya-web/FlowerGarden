@@ -1,81 +1,343 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+/* ===================================================== */
+/* === FLOWER GARDEN - CAMBIO DE DATOS ================= */
+/* ===================================================== */
+
+/* ================= VARIABLES ================= */
+
+:root{
+    --green-100:#e9f7ef;
+    --green-200:#d2f0dc;
+    --green-300:#a8e2b8;
+    --green-400:#7ed694;
+    --green-500:#4cc86f;
+    --green-600:#3ead57;
+    --green-700:#2f8a47;
+
+    --white:#ffffff;
+    --text:#163223;
+    --muted:#607064;
+
+    --shadow:0 10px 28px rgba(19,50,35,0.10);
+    --radius:22px;
+    --transition:220ms ease;
 }
+
+/* ================= RESET ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+/* ================= BODY ================= */
 
 body{
-    background-image: url("../Imagenes/Fondo.png");
-    background-size: 100% auto;
-    background-attachment: fixed;
-    color: #2d3b2d;
-    
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--green-100) 0%,
+            #f6fff8 45%,
+            var(--white) 100%
+        );
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    position:relative;
 }
 
+/* Decoraciones */
+
+body::before{
+    content:"";
+
+    position:fixed;
+
+    width:320px;
+    height:320px;
+
+    border-radius:50%;
+
+    background:rgba(126,214,148,0.16);
+
+    top:-120px;
+    left:-100px;
+
+    filter:blur(10px);
+
+    z-index:0;
+}
+
+body::after{
+    content:"";
+
+    position:fixed;
+
+    width:280px;
+    height:280px;
+
+    border-radius:50%;
+
+    background:rgba(76,200,111,0.10);
+
+    bottom:-120px;
+    right:-80px;
+
+    filter:blur(10px);
+
+    z-index:0;
+}
+
+/* ================= MAIN ================= */
 
 main{
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0;
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:2.5rem 1rem;
+
+    position:relative;
+    z-index:1;
 }
 
+/* ================= TARJETA ================= */
 
 section{
-    width: 420px;
-    background: white;
-    padding: 30px;
-    border-radius: 18px;
-    margin: 20px;
+    width:100%;
+    max-width:760px;
+
+    background:rgba(255,255,255,0.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:26px;
+
+    padding:2.8rem;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeIn 0.45s ease;
 }
 
+/* ================= TITULO ================= */
 
-section p{
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 25px;
-    color: #3b5e3b;
-    text-align: center;
+section > p{
+    text-align:center;
+
+    font-size:2.2rem;
+    font-weight:700;
+
+    color:var(--green-700);
+
+    margin-bottom:2rem;
 }
 
-form label{
-    font-weight: bold;
-    font-size: 15px;
-    color: #2f4a2f;
+/* ================= FORMULARIO ================= */
+
+form{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:1.4rem 1.6rem;
 }
 
-form input{
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #eef9ee;
-    
+/* ================= CAMPOS ================= */
+
+.campo{
+    display:flex;
+    flex-direction:column;
 }
+
+/* ================= SUBTITULO ================= */
+
+form p{
+    grid-column:1 / -1;
+
+    font-size:1.3rem;
+    font-weight:700;
+
+    color:var(--green-700);
+
+    margin-top:1rem;
+
+    padding-bottom:0.6rem;
+
+    border-bottom:2px solid var(--green-200);
+}
+
+/* ================= LABELS ================= */
+
+.campo label{
+    margin-bottom:0.5rem;
+
+    font-size:0.95rem;
+    font-weight:600;
+
+    color:#234a33;
+}
+
+/* ================= INPUTS ================= */
+
+.campo input{
+    width:100%;
+
+    padding:0.95rem 1rem;
+
+    border:1px solid #d8eadb;
+
+    border-radius:14px;
+
+    background:var(--white);
+
+    font-size:0.95rem;
+
+    color:var(--text);
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+}
+
+/* Focus */
+
+.campo input:focus{
+    outline:none;
+
+    border-color:var(--green-400);
+
+    box-shadow:0 0 0 4px rgba(76,200,111,0.15);
+
+    transform:translateY(-1px);
+}
+
+/* ================= BOTON ================= */
 
 form button{
-    width: 100%;
-    padding: 20px;
-    border: none;
-    border-radius: 10px;
-    background: #2f6a33;
-    color: white;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 16px;
+    grid-column:1 / -1;
+
+    margin-top:1rem;
+
+    padding:1rem;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        180deg,
+        var(--green-500),
+        var(--green-600)
+    );
+
+    color:var(--white);
+
+    font-size:1rem;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:all var(--transition);
+
+    box-shadow:0 10px 22px rgba(76,200,111,0.22);
 }
 
+/* Hover botón */
+
+form button:hover{
+    transform:translateY(-3px);
+
+    background:linear-gradient(
+        180deg,
+        var(--green-600),
+        var(--green-700)
+    );
+}
+
+/* ================= FOOTER ================= */
+
 footer{
-    text-align: center;
-    padding: 20px;
-    background: #3f6b3a;
-    color: white;
-    margin-top: 40px;
+    text-align:center;
+
+    padding:1.2rem;
+
+    background:linear-gradient(
+        90deg,
+        var(--green-600),
+        var(--green-700)
+    );
+
+    color:var(--white);
+
+    margin-top:auto;
+
+    position:relative;
+    z-index:1;
+}
+
+/* ================= ANIMACION ================= */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:760px){
+
+    section{
+        padding:2rem;
+    }
+
+    form{
+        grid-template-columns:1fr;
+    }
+    
+    section > p{
+        font-size:1.9rem;
+    }
+}
+
+@media(max-width:520px){
+
+    main{
+        padding:1rem;
+    }
+
+    section{
+        padding:1.5rem;
+        border-radius:20px;
+    }
+
+    section > p{
+        font-size:1.6rem;
+    }
+
+    form p{
+        font-size:1.1rem;
+    }
+
+    .campo input{
+        padding:0.85rem 0.9rem;
+    }
 }

@@ -27,41 +27,63 @@
             <p>Cambio de Datos</p>
          
             <form action="../JSP/ActualizarCliente.jsp?idCliente=<%=idCliente%>" method="post">
+                
+                <div class="campo">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" value="<%=rs.getString("nombre")%>" required><br>
+                </div>
+                
+                <div class="campo">
+                    <label for="ap">Apellido Paterno:</label>
+                    <input type="text" name="ap" id="ap" value="<%=rs.getString("appat")%>" required><br>
+                </div>
 
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" value="<%=rs.getString("nombre")%>" required><br>
-            
-                <label for="ap">Apellido Paterno:</label>
-                <input type="text" name="ap" id="ap" value="<%=rs.getString("appat")%>" required><br>
+                <div class="campo">
+                    <label for="am">Apellido Materno:</label>
+                    <input type="text" name="am" id="am" value="<%=rs.getString("apmat")%>" required><br>
+                </div>
 
-                <label for="am">Apellido Materno:</label>
-                <input type="text" name="am" id="am" value="<%=rs.getString("apmat")%>" required><br>
+                <div class="campo">
+                    <label for="correo">Correo:</label>
+                    <input type="email" name="correo" id="correo" value="<%=rs.getString("email")%>" required><br>
+                </div>
 
-                <label for="correo">Correo:</label>
-                <input type="email" name="correo" id="correo" value="<%=rs.getString("email")%>" required><br>
+                <div class="campo">
+                    <label for="toc">Teléfono o Celular:</label>
+                    <input type="number" name="toc" id="toc" value="<%=rs.getString("celular")%>" required><br>
+                </div>
 
-                <label for="toc">Teléfono o Celular:</label>
-                <input type="number" name="toc" id="toc" value="<%=rs.getString("celular")%>" required><br>
+                <div class="campo">
+                    <label for="pwd">Contraseña:</label>
+                    <input type="text" name="pwd" id="pwd" value="<%=rs.getString("contrasena")%>" required><br>
+                </div>
 
-                <label for="pwd">Contraseña:</label>
-                <input type="text" name="pwd" id="pwd" value="<%=rs.getString("contrasena")%>" required><br>
-                
-                <p>Dirección</p><br>
-                
-                <label for="est">Estado:</label>
-                <input type="text" name="est" id="est" value="<%=rs.getString("estado")%>" required><br>
-                
-                <label for="cd">Ciudad:</label>
-                <input type="text" name="cd" id="cd" value="<%=rs.getString("ciudad")%>" required><br>
-                
-                <label for="col">Colonia:</label>
-                <input type="text" name="col" id="col" value="<%=rs.getString("colonia")%>" required><br>
-                
-                <label for="calle">Calle:</label>
-                <input type="text" name="calle" id="calle" value="<%=rs.getString("calle")%>" required><br>
-                
-                <label for="cp">Código Postal:</label>
-                <input type="number" name="cp" id="cp" value="<%=rs.getInt("cp")%>" required><br>
+                    <p>Dirección</p>
+
+                <div class="campo">
+                    <label for="est">Estado:</label>
+                    <input type="text" name="est" id="est" value="<%=rs.getString("estado")%>" required><br>
+                </div>
+
+                <div class="campo">
+                    <label for="cd">Ciudad:</label>
+                    <input type="text" name="cd" id="cd" value="<%=rs.getString("ciudad")%>" required><br>
+                </div>
+
+                <div class="campo">
+                    <label for="col">Colonia:</label>
+                    <input type="text" name="col" id="col" value="<%=rs.getString("colonia")%>" required><br>
+                </div>
+
+                <div class="campo">
+                    <label for="calle">Calle:</label>
+                    <input type="text" name="calle" id="calle" value="<%=rs.getString("calle")%>" required><br>
+                </div>
+
+                <div class="campo">
+                    <label for="cp">Código Postal:</label>
+                    <input type="number" name="cp" id="cp" value="<%=rs.getInt("cp")%>" required><br>
+                </div>
 
                 <button type="submit">Cambiar Datos</button>
               

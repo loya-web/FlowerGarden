@@ -1,33 +1,69 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../CSS/Resena1.css" rel="stylesheet" type="text/css"/>
-        <title>Reseña</title>
+        <title>Escribir Reseña</title>
     </head>
-    
+
     <body>
+
+        <%
+            int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+            int idProducto = Integer.parseInt(request.getParameter("idProducto"));
+            String producto = request.getParameter("producto");
+            double precio = Double.parseDouble(request.getParameter("precio"));
+        %>
+
         <main>
-        <section>
-            <%
-                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-                int idProducto = Integer.parseInt(request.getParameter("idProducto"));
-                String producto = request.getParameter("producto");
-                double precio = Double.parseDouble(request.getParameter("precio"));
-            %>
-            <p id="uno">Escribir Reseña</p>
-            <p id="dos">Producto: <%=producto%></p>
-            <p id="tres">Precio: <%=precio%></p>
-            <form action="GuardarResena.jsp?idCliente=<%=idCliente%>&idProducto=<%=idProducto%>" method="post">
 
-                <label for="resena">Reseña:</label>
-                <input type="text" name="resena" id="resena" required><br>
+            <section class="card-resena">
 
-                <button type="submit">Enviar</button> 
-            </form>
-        </section>
+                <div class="producto-info">
+
+                    <h1>Escribir Reseña</h1>
+
+                    <div class="detalle">
+                        <p><strong>Producto:</strong> <%=producto%></p>
+                        <p><strong>Precio:</strong> $<%=precio%></p>
+                    </div>
+
+                </div>
+
+                <form action="GuardarResena.jsp?idCliente=<%=idCliente%>&idProducto=<%=idProducto%>" method="post">
+
+                    <label>Calificación</label>
+
+                    <div class="rating">
+
+                        <input type="radio" name="calificacion" id="star5" value="5" required>
+                        <label for="star5">★</label>
+
+                        <input type="radio" name="calificacion" id="star4" value="4">
+                        <label for="star4">★</label>
+
+                        <input type="radio" name="calificacion" id="star3" value="3">
+                        <label for="star3">★</label>
+
+                        <input type="radio" name="calificacion" id="star2" value="2">
+                        <label for="star2">★</label>
+
+                        <input type="radio" name="calificacion" id="star1" value="1">
+                        <label for="star1">★</label>
+
+                    </div>
+
+                    <label for="resena">Tu reseña</label>
+
+                    <textarea name="resena" id="resena" placeholder="Escribe tu opinión sobre el producto..." required></textarea>
+
+                    <button type="submit">Enviar Reseña</button>
+
+                </form>
+
+            </section>
+
         </main>
 
         <footer>

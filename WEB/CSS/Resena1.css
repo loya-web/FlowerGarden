@@ -1,90 +1,278 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+/* ================================================= */
+/* === VARIABLES GENERALES === */
+/* ================================================= */
+
+:root{
+    --green-100:#e9f7ef;
+    --green-200:#d2f0dc;
+    --green-400:#7ed694;
+    --green-500:#4cc86f;
+    --green-600:#3ead57;
+    --green-700:#2f8a47;
+
+    --white:#ffffff;
+    --text:#163223;
+    --muted:#5f6f65;
+
+    --shadow:0 8px 22px rgba(19,50,35,0.10);
+    --radius:18px;
 }
+
+/* ================================================= */
+/* === RESET === */
+/* ================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+/* ================================================= */
+/* === BODY === */
+/* ================================================= */
 
 body{
-    background-image: url("../Imagenes/Fondo.png");
-    background-size: 100% auto;
-    color: #2f3e2f;
-    
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background:linear-gradient(
+        180deg,
+        var(--green-100),
+        #ffffff
+    );
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
 }
 
+/* ================================================= */
+/* === MAIN === */
+/* ================================================= */
 
 main{
-    flex-grow: 1;
-    display: grid;
-    place-content: center;
+    flex-grow:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:50px 20px;
 }
 
+/* ================================================= */
+/* === CARD === */
+/* ================================================= */
 
-section{
-    width: 400px;
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    margin: 10px;
-    
+.card-resena{
+    width:100%;
+    max-width:650px;
+
+    background:var(--white);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:35px;
 }
 
-#uno{
-    font-size: 24px;
-    margin-bottom: 25px;
-    font-weight: bold;
-    color: #3b5e3b;
-    text-align: center;
+/* ================================================= */
+/* === TITULOS === */
+/* ================================================= */
+
+.card-resena h1{
+    text-align:center;
+
+    color:var(--green-700);
+
+    margin-bottom:25px;
+
+    font-size:2rem;
 }
 
-#dos, #tres{
-    font-size: 18px;
-    margin-bottom: 25px;    
-    color: #3b5e3b;
+/* ================================================= */
+/* === INFO PRODUCTO === */
+/* ================================================= */
+
+.detalle{
+    background:var(--green-100);
+
+    border-radius:14px;
+
+    padding:18px;
+
+    margin-bottom:30px;
 }
 
+.detalle p{
+    margin-bottom:10px;
+
+    color:var(--text);
+
+    font-size:1rem;
+}
+
+.detalle p:last-child{
+    margin-bottom:0;
+}
+
+/* ================================================= */
+/* === FORMULARIO === */
+/* ================================================= */
+
+form{
+    display:flex;
+    flex-direction:column;
+}
 
 form label{
-    font-weight: bold;
-    font-size: 15px;
-    color: #2f4a2f;
+    font-weight:700;
+
+    margin-bottom:10px;
+
+    color:var(--green-700);
 }
 
+/* ================================================= */
+/* === TEXTAREA === */
+/* ================================================= */
 
-form input{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color:#dff5d8;
+textarea{
+    width:100%;
+
+    min-height:160px;
+
+    resize:vertical;
+
+    border:1px solid #d8e5dc;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    font-size:1rem;
+
+    background:#fbfffc;
+
+    margin-bottom:25px;
+
+    transition:0.2s;
 }
 
-form button{
-    
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background: #3f6b3a;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 10px;
+textarea:focus{
+    outline:none;
 
+    border-color:var(--green-400);
+
+    box-shadow:0 0 0 4px rgba(76,200,111,0.15);
 }
 
+/* ================================================= */
+/* === ESTRELLAS === */
+/* ================================================= */
+
+.rating{
+    display:flex;
+    flex-direction:row-reverse;
+    justify-content:center;
+
+    margin-bottom:30px;
+}
+
+.rating input{
+    display:none;
+}
+
+.rating label{
+    font-size:2.5rem;
+
+    color:#cfd8d3;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.rating input:checked ~ label{
+    color:#ffd700;
+}
+
+.rating label:hover,
+.rating label:hover ~ label{
+    color:#ffd700;
+}
+
+/* ================================================= */
+/* === BOTON === */
+/* ================================================= */
+
+button{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        var(--green-500),
+        var(--green-600)
+    );
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(76,200,111,0.20);
+}
+
+/* ================================================= */
+/* === FOOTER === */
+/* ================================================= */
 
 footer{
-    text-align: center;
-    padding: 20px;
-    background: #3f6b3a;
-    color: white;
-    margin-top: 40px;
+    text-align:center;
+
+    padding:20px;
+
+    background:var(--green-700);
+
+    color:white;
+
+    margin-top:auto;
+}
+
+/* ================================================= */
+/* === RESPONSIVE === */
+/* ================================================= */
+
+@media(max-width:700px){
+
+    .card-resena{
+        padding:25px;
+    }
+
+    .card-resena h1{
+        font-size:1.6rem;
+    }
+
+    .rating label{
+        font-size:2rem;
+    }
+
 }

@@ -23,7 +23,7 @@
                 <input type="decimal" name="precio" id="precio" required><br>
 
                 <label for="descripcion">Descripcion:</label>
-                <input type="text" name="descripcion" id="descripcion" required><br>
+                <textarea name="descripcion" id="descripcion" required></textarea><br>
 
                 <button type="submit">Registrar Producto</button>
 

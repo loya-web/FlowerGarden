@@ -27,26 +27,38 @@
             <p>Cambio de Datos</p>
          
             <form action="../JSP/ActualizarVendedor.jsp?idVendedor=<%=idVendedor%>" method="post">
-
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" value="<%=rs.getString("nombre")%>" required><br>
-
-                <label for="ap">Apellido Paterno:</label>
-                <input type="text" name="ap" id="ap" value="<%=rs.getString("appat")%>"  required><br>
-
-                <label for="am">Apellido Materno:</label>
-                <input type="text" name="am" id="am" value="<%=rs.getString("apmat")%>"  required><br>
-
-                <label for="correo">Correo:</label>
-                <input type="email" name="correo" id="correo" value="<%=rs.getString("email")%>"  required><br>
-
-                <label for="toc">Teléfono o Celular:</label>
-                <input type="number" name="toc" id="toc" value="<%=rs.getString("celular")%>"  required><br>
-
-                <label for="pwd">Contraseña:</label>
-                <input type="text" name="pwd" id="pwd" value="<%=rs.getString("contrasena")%>"  required><br>
-
-                <button type="submit">Cambiar Datos</button>
+                
+                <div class="campo">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" value="<%=rs.getString("nombre")%>" required><br>
+                </div>
+                    
+                <div class="campo">
+                    <label for="ap">Apellido Paterno:</label>
+                    <input type="text" name="ap" id="ap" value="<%=rs.getString("appat")%>"  required><br>
+                </div>
+                
+                <div class="campo">
+                    <label for="am">Apellido Materno:</label>
+                    <input type="text" name="am" id="am" value="<%=rs.getString("apmat")%>"  required><br>
+                </div>
+                   
+                <div class="campo">
+                    <label for="correo">Correo:</label>
+                    <input type="email" name="correo" id="correo" value="<%=rs.getString("email")%>"  required><br>
+                </div>
+                    
+                <div class="campo">
+                    <label for="toc">Teléfono o Celular:</label>
+                    <input type="number" name="toc" id="toc" value="<%=rs.getString("celular")%>"  required><br>
+                </div>
+                   
+                <div class="campo">
+                    <label for="pwd">Contraseña:</label>
+                    <input type="text" name="pwd" id="pwd" value="<%=rs.getString("contrasena")%>"  required><br>
+                </div>
+                
+                    <button type="submit">Cambiar Datos</button>
                 
             </form>
 

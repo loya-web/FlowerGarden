@@ -1,82 +1,313 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+/* ===================================================== */
+/* === FLOWER GARDEN - PANEL DE RESEÑAS =============== */
+/* ===================================================== */
+
+/* ================= VARIABLES ================= */
+
+:root{
+
+    --green-100:#e9f7ef;
+    --green-200:#d2f0dc;
+    --green-300:#a8e2b8;
+    --green-400:#7ed694;
+    --green-500:#4cc86f;
+    --green-600:#3ead57;
+    --green-700:#2f8a47;
+
+    --white:#ffffff;
+
+    --text:#163223;
+    --muted:#607064;
+
+    --gold:#ffc933;
+
+    --shadow:0 10px 28px rgba(19,50,35,0.10);
+
+    --radius:24px;
+
+    --transition:220ms ease;
 }
+
+/* ================= RESET ================= */
+
+*{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:"Segoe UI",sans-serif;
+}
+
+/* ================= BODY ================= */
 
 body{
-    background-image: url("../Imagenes/Fondo.png");
-    background-size: 100% auto;
-    background-attachment: fixed;
-    color: #2f3e2f;
-    
-    
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--green-100) 0%,
+            #f7fff9 45%,
+            var(--white) 100%
+        );
+
+    color:var(--text);
 }
 
-main {
-    flex-grow: 1;
+/* ================= HEADER ================= */
+
+header{
+
+    padding:1rem 1.5rem;
 }
 
-header {
-    background: #2F5D2F;
-    padding: 15px 0;
+/* ================= NAVBAR ================= */
+
+nav{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:1rem 1.5rem;
+
+    background:rgba(255,255,255,0.72);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 30px;
-    align-items: center;
+nav h2{
+
+    color:var(--green-700);
+
+    font-size:1.5rem;
 }
 
-nav p, nav a {
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
+nav img{
+
+    transition:transform var(--transition);
 }
 
-main {
-    background-color: #F5F5F5;
-    padding: 40px;
-    margin: 30px;
-    border: 2px solid #2F5D2F;
-    
+nav img:hover{
+
+    transform:scale(1.05);
 }
 
+/* ================= MAIN ================= */
 
+main{
 
-table{
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 17px;
+    flex:1;
+
+    width:100%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:2rem 1rem;
 }
 
-table thead{
-    background: #3f6b3a;
-    color: white;
+/* ================= SUMMARY ================= */
+
+.summary{
+
+    margin-bottom:2rem;
 }
 
-table th, table td{
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-    
+.summary-card{
+
+    max-width:320px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,0.88);
+
+    backdrop-filter:blur(10px);
+
+    padding:1.8rem;
+
+    border-radius:24px;
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
 }
 
-table td {
-    background-color: #ffffff;
+.summary-card h3{
+
+    color:var(--green-700);
+
+    margin-bottom:0.8rem;
 }
 
+.summary-card p{
 
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #2F5D2F;
-    color: white;
-    margin-top: 40px;
+    font-size:2rem;
+
+    font-weight:700;
 }
 
+/* ================= CONTENEDOR ================= */
+
+.reviews-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2rem;
+}
+
+/* ================= TARJETA ================= */
+
+.review-card{
+
+    background:rgba(255,255,255,0.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:28px;
+
+    padding:2rem;
+
+    box-shadow:var(--shadow);
+
+    transition:all var(--transition);
+}
+
+.review-card:hover{
+
+    transform:translateY(-4px);
+}
+
+/* ================= TOP ================= */
+
+.review-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:1rem;
+
+    margin-bottom:1.5rem;
+}
+
+.review-top h2{
+
+    color:var(--green-700);
+
+    margin-bottom:0.4rem;
+}
+
+/* ================= CLIENTE ================= */
+
+.client-name{
+
+    color:var(--muted);
+
+    font-size:1rem;
+
+    font-weight:600;
+}
+
+/* ================= ESTRELLAS ================= */
+
+.stars{
+
+    font-size:1.8rem;
+
+    color:var(--gold);
+
+    letter-spacing:4px;
+}
+
+/* ================= DESCRIPCION ================= */
+
+.review-description{
+
+    background:var(--green-100);
+
+    padding:1.2rem;
+
+    border-radius:18px;
+
+    line-height:1.8;
+}
+
+.review-description p{
+
+    color:var(--text);
+
+    font-size:1rem;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    text-align:center;
+
+    padding:1.2rem;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green-600),
+            var(--green-700)
+        );
+
+    color:var(--white);
+
+    margin-top:auto;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:760px){
+
+    .review-top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .stars{
+
+        font-size:1.5rem;
+    }
+}
+
+@media(max-width:520px){
+
+    nav h2{
+
+        font-size:1.1rem;
+    }
+
+    .review-card{
+
+        padding:1.5rem;
+    }
+}

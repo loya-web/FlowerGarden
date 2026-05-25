@@ -1,97 +1,343 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+/* ===================================================== */
+/* === FLOWER GARDEN - CONTACTO ADMINISTRADOR ========== */
+/* ===================================================== */
+
+/* ================= VARIABLES ================= */
+
+:root{
+
+    --green-100:#e9f7ef;
+    --green-200:#d2f0dc;
+    --green-300:#a8e2b8;
+    --green-400:#7ed694;
+    --green-500:#4cc86f;
+    --green-600:#3ead57;
+    --green-700:#2f8a47;
+
+    --white:#ffffff;
+
+    --text:#163223;
+    --muted:#607064;
+
+    --shadow:0 10px 28px rgba(19,50,35,0.10);
+
+    --radius:24px;
+
+    --transition:220ms ease;
 }
 
+/* ================= RESET ================= */
 
-body {
-    background-image: url("../Imagenes/Fondo.png");
-    background-size: cover;
-    color: #2E2E2E;
-    
-     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
 }
 
-main{
-    flex-grow: 1;
+/* ================= BODY ================= */
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--green-100) 0%,
+            #f7fff9 45%,
+            var(--white) 100%
+        );
+
+    color:var(--text);
+
+    overflow-x:hidden;
 }
+
+/* ================= HEADER ================= */
 
 header{
-    background: #3f6b3a;
-    padding: 12px 0;
+    padding:1rem 1.5rem;
 }
 
-header nav{
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* ================= NAVBAR ================= */
+
+nav{
+
+    max-width:1300px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:1rem 1.5rem;
+
+    background:rgba(255,255,255,0.72);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
 }
 
-header nav a{
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    font-weight: bold;
+/* Título */
+
+nav h2{
+
+    color:var(--green-700);
+
+    font-size:1.5rem;
+
+    font-weight:700;
 }
+
+/* Hover imágenes */
+
+nav img{
+
+    transition:transform var(--transition);
+}
+
+nav img:hover{
+
+    transform:scale(1.05);
+}
+
+/* ================= MAIN ================= */
 
 main{
-    margin-bottom: 300px;
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:2rem 1rem;
 }
 
-main h2{
-    text-align: center;
-    margin-top: 40px;
-    font-size: 26px;
-    color: #2f3e2f;
+/* ================= TARJETA ================= */
+
+.contact-card{
+
+    width:100%;
+
+    max-width:800px;
+
+    background:rgba(255,255,255,0.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:30px;
+
+    padding:3rem;
+
+    box-shadow:var(--shadow);
+
+    animation:fadeIn 0.4s ease;
 }
 
+/* ================= PERFIL ================= */
 
-main div{
-    width: 85%;
-    margin: 30px auto;
-    background: white;
-    padding: 20px;
-    border: 2px solid #3f6b3a;
-    
+.profile{
+
+    text-align:center;
+
+    margin-bottom:2rem;
 }
 
-table{
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 17px;
+.profile img{
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    background:var(--green-100);
+
+    padding:1rem;
+
+    margin-bottom:1rem;
 }
 
-table thead{
-    background: #3f6b3a;
-    color: white;
+.profile h1{
+
+    font-size:2rem;
+
+    color:var(--green-700);
+
+    margin-bottom:0.5rem;
 }
 
-table th, table td{
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
+.role{
+
+    color:var(--muted);
+
+    font-size:1rem;
 }
 
-table td a{
-    display: block;
-    color: #3f6b3a;
-    text-decoration: none;
+/* ================= INFO ================= */
+
+.contact-info{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:1.5rem;
+
+    margin-bottom:2rem;
 }
 
-table td a:hover {
-    text-decoration: underline;
+/* ================= BOXES ================= */
+
+.info-box{
+
+    background:var(--green-100);
+
+    padding:1.5rem;
+
+    border-radius:20px;
+
+    transition:all var(--transition);
 }
 
+.info-box:hover{
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #2F5D2F;
-    color: white;
+    transform:translateY(-5px);
+
+    background:var(--green-200);
+}
+
+.info-box h3{
+
+    color:var(--green-700);
+
+    margin-bottom:0.7rem;
+
+    font-size:1.1rem;
+}
+
+.info-box p{
+
+    color:var(--text);
+
+    font-size:1rem;
+
+    word-break:break-word;
+}
+
+/* ================= MENSAJE ================= */
+
+.message-box{
+
+    background:#f8fff9;
+
+    border:2px solid var(--green-200);
+
+    border-radius:20px;
+
+    padding:1.5rem;
+
+    text-align:center;
+}
+
+.message-box p{
+
+    line-height:1.8;
+
+    color:#47604d;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    text-align:center;
+
+    padding:1.2rem;
+
+    background:linear-gradient(
+        90deg,
+        var(--green-600),
+        var(--green-700)
+    );
+
+    color:var(--white);
+
+    margin-top:auto;
+}
+
+/* ================= ANIMACIÓN ================= */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:760px){
+
+    .contact-card{
+
+        padding:2rem;
+    }
+
+    .contact-info{
+
+        grid-template-columns:1fr;
+    }
+
+    .profile h1{
+
+        font-size:1.6rem;
+    }
+}
+
+@media(max-width:520px){
+
+    nav{
+
+        padding:1rem;
+    }
+
+    nav h2{
+
+        font-size:1.1rem;
+    }
+
+    .contact-card{
+
+        padding:1.5rem;
+    }
+
+    .profile img{
+
+        width:95px;
+        height:95px;
+    }
+
+    .profile h1{
+
+        font-size:1.3rem;
+    }
 }

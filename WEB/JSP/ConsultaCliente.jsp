@@ -34,7 +34,7 @@
                 Connection con;
                 con = Conexion.conectar();
                 PreparedStatement sta;
-                sta = con.prepareStatement("SELECT * FROM cliente WHERE idCliente = ?");
+                sta = con.prepareStatement("SELECT * FROM Cliente WHERE idCliente = ?");
                 sta.setString(1,id);
                 ResultSet rs = sta.executeQuery();
                     rs.next();

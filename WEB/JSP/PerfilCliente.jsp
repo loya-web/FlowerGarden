@@ -36,7 +36,7 @@
                 PreparedStatement sta;
                    
                 
-                sta = con.prepareStatement("SELECT * FROM cliente WHERE nombre = ?");
+                sta = con.prepareStatement("SELECT * FROM Cliente WHERE nombre = ?");
                 sta.setString(1, nombre);
                 ResultSet rs = sta.executeQuery();
                     rs.next();
@@ -80,12 +80,14 @@
                     <p>Carrito de Compras</p>
                     <img src="../Imagenes/Carrito1.png" alt="Carrito" width="150" height="150"/>
                 </a>
-
+                
+                <!--
                 <a href="../JSP/ConsultaCliente.jsp?idCliente=<%=idCliente%>">
                     <p>Consulta de Datos</p>
                     <img src="../Imagenes/Lupa.png" alt="Lupa" width="150" height="150"/>
                 </a>
-
+                -->
+                
                 <a href="../JSP/CambioCliente.jsp?idCliente=<%=idCliente%>">
                     <p>Cambio de Datos</p>
                     <img src="../Imagenes/Cambio.png" alt="Cambio" width="150" height="150"/>
