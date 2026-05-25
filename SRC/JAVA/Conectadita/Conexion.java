@@ -6,7 +6,7 @@ public class Conexion {
         Connection con = null;
         try{            
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/FlowerGarden","root","n0m310");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/FlowerGarden","root","");
             return con;
         }
             catch (ClassNotFoundException | SQLException e){
