@@ -17,13 +17,9 @@
         %>
 
         <main>
-
             <section class="card-resena">
-
                 <div class="producto-info">
-
                     <h1>Escribir Reseña</h1>
-
                     <div class="detalle">
                         <p><strong>Producto:</strong> <%=producto%></p>
                         <p><strong>Precio:</strong> $<%=precio%></p>
@@ -55,9 +51,7 @@
                     </div>
 
                     <label for="resena">Tu reseña</label>
-
                     <textarea name="resena" id="resena" placeholder="Escribe tu opinión sobre el producto..." required></textarea>
-
                     <button type="submit">Enviar Reseña</button>
 
                 </form>
@@ -65,10 +59,12 @@
             </section>
 
         </main>
-
+        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
+           accesskey=""class="btn-regresar">
+            ⬅ Volver al Perfil
+        </a>
         <footer>
             &COPY; Flower Garden - Gestión de plantas y jardinería
         </footer>
-
     </body>
 </html>

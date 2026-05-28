@@ -65,7 +65,7 @@
                         out.println("<button type='submit'>Comprar</button>");
                         %></form><%
                         //out.println("</form>");
-                        out.println("<form action='EscribirResena.jsp?idProducto="+idProducto[j]+"&idCliente="+idCliente+"&producto="+producto[j]+"&precio="+precio[j]+"' method='post'>");
+                        out.println("<form action='EscribirResena.jsp?idProducto="+idProducto[j]+"&idCliente="+idCliente+"&producto="+producto[j]+"&precio="+precio[j]+"&nombre="+request.getParameter("nombre")+"' method='post'>");
                         out.println("<button type='submit'>Reseñar</button>");
                         out.println("</form>");
                         out.println("</div>");
@@ -75,7 +75,12 @@
             
             
         </main>
+        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
+           accesskey=""class="btn-regresar">
 
+            ⬅ Volver al Perfil
+
+        </a>
         <footer>
             &COPY; Flower Garden - Gestión de plantas y jardinería
         </footer>

@@ -33,7 +33,12 @@
                 if (valido) {
                     response.sendRedirect("PerfilVendedor.jsp?nombre="+nombre);
                 } else {
-                    response.sendRedirect("../RegistroVendedor.html");
+                    %>
+                        <script>
+                            alert("Usuario o contraseña incorrectos");
+                            window.location.href = "../InicioVendedor.html";
+                        </script>
+                    <%
                 }
 
             } catch (SQLException e) {

@@ -47,10 +47,7 @@
             window.location.href = "../InicioCliente.html";
         </script>
         <%
-                /*
-                response.sendRedirect("../InicioVendedor.html");
-                out.print("<h1 align='center'>Registro exitoso</h1>");
-                */
+
             }catch(Exception e){
                 System.out.println("Error: " + e.getMessage());
                 out.print(e.getMessage());

@@ -1,8 +1,3 @@
-/* ===================================================== */
-/* === FLOWER GARDEN - ELIMINAR CUENTA ================= */
-/* ===================================================== */
-
-/* ================= VARIABLES ================= */
 
 :root{
     --green-100:#e9f7ef;
@@ -27,16 +22,12 @@
     --transition:220ms ease;
 }
 
-/* ================= RESET ================= */
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:"Segoe UI",sans-serif;
 }
-
-/* ================= BODY ================= */
 
 body{
     min-height:100vh;
@@ -58,8 +49,6 @@ body{
 
     position:relative;
 }
-
-/* Decoraciones */
 
 body::before{
     content:"";
@@ -101,16 +90,12 @@ body::after{
     z-index:0;
 }
 
-/* ================= HEADER ================= */
-
 header{
     padding:1rem 1.5rem;
 
     position:relative;
     z-index:1;
 }
-
-/* ================= NAVBAR ================= */
 
 nav{
     max-width:1300px;
@@ -132,16 +117,12 @@ nav{
     box-shadow:var(--shadow);
 }
 
-/* Texto navbar */
-
 nav p{
     color:var(--green-700);
 
     font-size:1.4rem;
     font-weight:700;
 }
-
-/* Imágenes */
 
 nav img{
     transition:transform var(--transition);
@@ -150,8 +131,6 @@ nav img{
 nav img:hover{
     transform:scale(1.05);
 }
-
-/* ================= MAIN ================= */
 
 main{
     flex:1;
@@ -165,8 +144,6 @@ main{
     position:relative;
     z-index:1;
 }
-
-/* ================= TARJETA ================= */
 
 section{
     width:100%;
@@ -191,8 +168,6 @@ section{
     overflow:hidden;
 }
 
-/* Línea superior roja */
-
 section::before{
     content:"";
 
@@ -211,8 +186,6 @@ section::before{
     );
 }
 
-/* ================= MENSAJES ================= */
-
 section > p:first-of-type{
     font-size:2rem;
     font-weight:700;
@@ -221,8 +194,6 @@ section > p:first-of-type{
 
     margin-bottom:1rem;
 }
-
-/* Advertencia */
 
 section > p:nth-of-type(2){
     background:#fff4f4;
@@ -241,8 +212,6 @@ section > p:nth-of-type(2){
     margin-bottom:2rem;
 }
 
-/* ================= FORM ================= */
-
 form{
     display:flex;
     flex-direction:column;
@@ -252,8 +221,6 @@ form{
     gap:1.3rem;
 }
 
-/* Texto pregunta */
-
 form p{
     font-size:1.1rem;
 
@@ -261,8 +228,6 @@ form p{
 
     line-height:1.6;
 }
-
-/* ================= BOTON ELIMINAR ================= */
 
 form button{
     width:100%;
@@ -293,8 +258,6 @@ form button{
     box-shadow:0 10px 22px rgba(239,68,68,0.20);
 }
 
-/* Hover botón */
-
 form button:hover{
     transform:translateY(-3px);
 
@@ -304,8 +267,6 @@ form button:hover{
         var(--red-700)
     );
 }
-
-/* ================= LINK CANCELAR ================= */
 
 form a{
     display:inline-flex;
@@ -332,15 +293,11 @@ form a{
     transition:all var(--transition);
 }
 
-/* Hover link */
-
 form a:hover{
     background:var(--green-200);
 
     transform:translateY(-2px);
 }
-
-/* ================= FOOTER ================= */
 
 footer{
     text-align:center;
@@ -361,8 +318,6 @@ footer{
     z-index:1;
 }
 
-/* ================= ANIMACION ================= */
-
 @keyframes fadeIn{
     from{
         opacity:0;
@@ -374,8 +329,6 @@ footer{
         transform:none;
     }
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width:700px){
 
@@ -413,4 +366,42 @@ footer{
     form p{
         font-size:1rem;
     }
+}
+
+.btn-regresar{
+
+    position:fixed;
+
+    bottom:25px;
+    right:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-500),
+            var(--green-700)
+        );
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 22px;
+
+    border-radius:18px;
+
+    font-weight:700;
+
+    box-shadow:0 10px 25px rgba(19,50,35,0.20);
+
+    transition:0.25s;
+
+    z-index:999;
+}
+
+.btn-regresar:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 14px 30px rgba(19,50,35,0.25);
 }

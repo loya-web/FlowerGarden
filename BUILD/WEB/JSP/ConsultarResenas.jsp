@@ -211,7 +211,12 @@
             </section>
 
         </main>
+        <a href="PerfilVendedor.jsp?nombre=<%=request.getParameter("nombre")%>" 
+           accesskey=""class="btn-regresar">
 
+            ⬅ Volver al Perfil
+
+        </a>
         <footer>
 
             &COPY; Flower Garden - Gestión de plantas y jardinería

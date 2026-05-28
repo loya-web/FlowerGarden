@@ -71,12 +71,12 @@
 
             <div class="options">
 
-                <a href="../JSP/Catalogo.jsp?idCliente=<%=idCliente%>" >
+                <a href="../JSP/Catalogo.jsp?idCliente=<%=idCliente%>&nombre=<%=nombre%>" >
                     <p>Catalogo</p>
                     <img src="../Imagenes/Catalogo.png" alt="Catalogo" width="150" height="150" />
                 </a>
 
-                <a href="../JSP/Carrito.jsp?idCliente=<%=idCliente%>">
+                <a href="../JSP/Carrito.jsp?idCliente=<%=idCliente%>&nombre=<%=nombre%>">
                     <p>Carrito de Compras</p>
                     <img src="../Imagenes/Carrito1.png" alt="Carrito" width="150" height="150"/>
                 </a>
@@ -88,12 +88,12 @@
                 </a>
                 -->
                 
-                <a href="../JSP/CambioCliente.jsp?idCliente=<%=idCliente%>">
+                <a href="../JSP/CambioCliente.jsp?idCliente=<%=idCliente%>&nombre=<%=nombre%>">
                     <p>Cambio de Datos</p>
                     <img src="../Imagenes/Cambio.png" alt="Cambio" width="150" height="150"/>
                 </a>
 
-                <a href="../JSP/BajaCliente.jsp?idCliente=<%=idCliente%>">
+                <a href="../JSP/BajaCliente.jsp?idCliente=<%=idCliente%>&nombre=<%=nombre%>">
                     <p>Eliminar cuenta</p>
                     <img src="../Imagenes/Baja.png" alt="Baja" width="150" height="150"/>
                 </a>
@@ -102,11 +102,16 @@
                     <p>Contacto con Vendedor</p>
                     <img src="../Imagenes/Contacto.png" alt="Contacto" width="150" height="150"/>
                 </a>
+                    
+                <a href="../JSP/../JSP/AsistenteIA.jsp?idCliente=<%=idCliente%>&nombre=<%=nombre%>">
+                    <p>Asistente de IA</p>
+                    <img src="../Imagenes/AsistenteIA.png" alt="Asistente de IA" width="150" height="150"/>
+                </a>
 
             </div>
 
         </main>
-
+        
         <footer>
             &COPY; Flower Garden - Gestión de plantas y jardinería
         </footer>

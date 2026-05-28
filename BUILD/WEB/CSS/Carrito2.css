@@ -1,8 +1,3 @@
-/* ===================================================== */
-/* === FLOWER GARDEN - CARRITO DE COMPRAS ============== */
-/* ===================================================== */
-
-/* ================= VARIABLES ================= */
 
 :root{
 
@@ -26,8 +21,6 @@
     --transition:220ms ease;
 }
 
-/* ================= RESET ================= */
-
 *{
 
     margin:0;
@@ -36,8 +29,6 @@
 
     font-family:"Segoe UI",sans-serif;
 }
-
-/* ================= BODY ================= */
 
 body{
 
@@ -57,14 +48,10 @@ body{
     color:var(--text);
 }
 
-/* ================= HEADER ================= */
-
 header{
 
     padding:1rem 1.5rem;
 }
-
-/* ================= NAVBAR ================= */
 
 nav{
 
@@ -106,8 +93,6 @@ nav img:hover{
     transform:scale(1.05);
 }
 
-/* ================= MAIN ================= */
-
 main{
 
     flex:1;
@@ -120,8 +105,6 @@ main{
 
     padding:2rem 1rem;
 }
-
-/* ================= RESUMEN ================= */
 
 .summary{
 
@@ -163,8 +146,6 @@ main{
     font-weight:700;
 }
 
-/* ================= PRODUCTOS ================= */
-
 .products{
 
     display:flex;
@@ -173,8 +154,6 @@ main{
 
     gap:1.5rem;
 }
-
-/* ================= TARJETA ================= */
 
 .product-card{
 
@@ -204,8 +183,6 @@ main{
     transform:translateY(-5px);
 }
 
-/* ================= IMAGEN ================= */
-
 .product-image{
 
     background:var(--green-100);
@@ -224,8 +201,6 @@ main{
 
     flex-shrink:0;
 }
-
-/* ================= INFO ================= */
 
 .product-info{
 
@@ -247,8 +222,6 @@ main{
 
     margin-bottom:1rem;
 }
-
-/* ================= DETAILS ================= */
 
 .details{
 
@@ -274,8 +247,6 @@ main{
     font-weight:600;
 }
 
-/* ================= PRECIO ================= */
-
 .product-price{
 
     min-width:140px;
@@ -291,8 +262,6 @@ main{
 
     color:var(--green-700);
 }
-
-/* ================= CARRITO VACÍO ================= */
 
 .empty-cart{
 
@@ -319,8 +288,6 @@ main{
     color:var(--muted);
 }
 
-/* ================= FOOTER ================= */
-
 footer{
 
     text-align:center;
@@ -338,8 +305,6 @@ footer{
 
     margin-top:auto;
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width:850px){
 
@@ -377,4 +342,42 @@ footer{
 
         font-size:1.5rem;
     }
+}
+
+.btn-regresar{
+
+    position:fixed;
+
+    bottom:25px;
+    right:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-500),
+            var(--green-700)
+        );
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 22px;
+
+    border-radius:18px;
+
+    font-weight:700;
+
+    box-shadow:0 10px 25px rgba(19,50,35,0.20);
+
+    transition:0.25s;
+
+    z-index:999;
+}
+
+.btn-regresar:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 14px 30px rgba(19,50,35,0.25);
 }

@@ -71,14 +71,14 @@
 
             <div class="options">
 
-                <a href="../JSP/CatalogoVendedor.jsp?idVendedor=<%=idVendedor%>" >
+                <a href="../JSP/CatalogoVendedor.jsp?idVendedor=<%=idVendedor%>&nombre=<%=nombre%>" >
                     <p>Catalogo</p>
                     <img src="../Imagenes/Catalogo.png" alt="Catalogo" width="150" height="150" />
                 </a>
 
-                <a href="../JSP/RegistrarProducto.jsp?idVendedor=<%=idVendedor%>">
+                <a href="../JSP/RegistrarProducto.jsp?idVendedor=<%=idVendedor%>&nombre=<%=nombre%>">
                     <p>Registrar Producto</p>
-                    <img src="../Imagenes/Carrito1.png" alt="Carrito" width="150" height="150"/>
+                    <img src="../Imagenes/RegistroProducto.png" alt="Carrito" width="150" height="150"/>
                 </a>
                 
                 <!--
@@ -88,7 +88,7 @@
                 </a>
                 -->
 
-                <a href="../JSP/CambioVendedor.jsp?idVendedor=<%=idVendedor%>">
+                <a href="../JSP/CambioVendedor.jsp?idVendedor=<%=idVendedor%>&nombre=<%=nombre%>">
                     <p>Cambio de Datos</p>
                     <img src="../Imagenes/Cambio.png" alt="Cambio" width="150" height="150"/>
                 </a>
@@ -100,9 +100,14 @@
                 </a>
                 -->
 
-                <a href="../JSP/ConsultarVentas.jsp">
+                <a href="../JSP/ConsultarVentas.jsp?nombre=<%=nombre%>">
                     <p>Consultar Ventas</p>
-                    <img src="../Imagenes/Contacto.png" alt="Contacto" width="150" height="150"/>
+                    <img src="../Imagenes/ConsultaVentas.png" alt="Contacto" width="150" height="150"/>
+                </a>
+                
+                <a href="../JSP/AnalisisVentas.jsp?nombre=<%=nombre%>">
+                    <p>Análisis de Ventas</p>
+                    <img src="../Imagenes/AnalisisVentas.png" alt="Analisis de Ventas" width="150" height="150"/>
                 </a>
 
             </div>
