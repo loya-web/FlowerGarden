@@ -1,86 +1,206 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Conectadita.Conexion"%>
 <%@page import="java.sql.*"%>
+
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if(!"VENDEDOR".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Catalogo de Productos</title>
-        <link href="../CSS/Catalogo2.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <header>
-            <nav>
+<head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
 
-                <img src="../Imagenes/Flor.png" alt="Logo" width="50" height="50"/>
-                <div></div>
-                <a href="Contacto.html" >
-                    <img src="../Imagenes/Telefono.png" alt="Telefono" width="50" height="50" />
-                </a>
-        </header>
+    <title>Catalogo de Productos</title>
 
-        <main>
-          
-            <section>
-                <%
-                    String idVendedor = request.getParameter("idVendedor");
-                    int totalProductos = 0;
-                    Connection con;
-                    con = Conexion.conectar();
-                    PreparedStatement st;
-                    st = con.prepareStatement("SELECT COUNT(*) AS totalProductos FROM Catalogo;");
-                    
-                    ResultSet rs = st.executeQuery();
-                    if (rs.next()) {
-                        totalProductos = rs.getInt("totalProductos");
-                    } else{
-                        out.println("gg");
-                    }
-                    int[] idProducto = new int[totalProductos];
-                    String[] producto=new String[totalProductos];
-                    double[] precio=new double[totalProductos];
-                    String[] descripcion=new String[totalProductos];
-                    PreparedStatement st2 = con.prepareStatement("select idProducto, producto, precio, descripcion from Catalogo;");
-                    ResultSet res = st2.executeQuery();
-                    for (int i=0; i<totalProductos; i++){
-                        if(res.next()){
-                            idProducto[i]=res.getInt("idProducto");
-                            producto[i]=res.getString("producto");
-                            precio[i]=res.getDouble("precio");
-                            descripcion[i]=res.getString("descripcion");
-                        }
-                    }
-                    for (int j=0; j<totalProductos; j++){
-                        out.println("<div>");
-                        out.println("<p>Id: "+idProducto[j]+"</p>");
-                        out.println("<p>Nombre: "+producto[j]+"</p>");
-                        out.println("<p>Precio: $"+precio[j]+"</p>");
-                        out.println("<p>"+descripcion[j]+"</p>");
-                        
-                        out.println("<form action='EliminarProducto.jsp?idProducto="+idProducto[j]+"&idVendedor="+idVendedor+"' method='post'>");
-                        out.println("<button type='submit'>Eliminar</button>");
-                        out.println("</form>");
-                        
-                        out.println("<form action='ConsultarResenas.jsp?idProducto="+idProducto[j]+"&nombre="+request.getParameter("nombre")+"' method='post'>");
-                        out.println("<button type='submit'>Ver Reseñas</button>");
-                        out.println("</form>");
-                        out.println("</div>");
-                    }
-                %>
-            </section>
-            
-            
-        </main>
-        <a href="PerfilVendedor.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
+    <link href="../CSS/Catalogo2.css"
+          rel="stylesheet"
+          type="text/css"/>
+</head>
 
-            ⬅ Volver al Perfil
+<body>
+
+<header>
+
+    <nav>
+
+        <img src="../Imagenes/Flor.png"
+             alt="Logo"
+             width="50"
+             height="50"/>
+
+        <div></div>
+
+        <a href="../JSP/ContactoVendedor.jsp">
+
+            <img src="../Imagenes/Telefono.png"
+                 alt="Telefono"
+                 width="50"
+                 height="50"/>
 
         </a>
-        <footer>
-            &COPY; Flower Garden - Gestión de plantas y jardinería
-        </footer>
 
+    </nav>
 
-    </body>
+</header>
+
+<main>
+
+<section>
+
+<%
+    Integer idUsuario =
+            (Integer) session.getAttribute("idUsuario");
+
+    int idVendedor = 0;
+
+    Connection con =
+            Conexion.conectar();
+
+    PreparedStatement stVend =
+            con.prepareStatement(
+                    "SELECT idVendedor " +
+                    "FROM Vendedor " +
+                    "WHERE Usuario_idUsuario = ?"
+            );
+
+    stVend.setInt(1, idUsuario);
+
+    ResultSet rsVend =
+            stVend.executeQuery();
+
+    if(rsVend.next()){
+        idVendedor =
+                rsVend.getInt("idVendedor");
+    }
+
+    int totalProductos = 0;
+
+    PreparedStatement st =
+            con.prepareStatement(
+                    "SELECT COUNT(*) AS totalProductos " +
+                    "FROM Catalogo"
+            );
+
+    ResultSet rs =
+            st.executeQuery();
+
+    if(rs.next()){
+        totalProductos =
+                rs.getInt("totalProductos");
+    }
+
+    int[] idProducto =
+            new int[totalProductos];
+
+    String[] producto =
+            new String[totalProductos];
+
+    double[] precio =
+            new double[totalProductos];
+
+    String[] descripcion =
+            new String[totalProductos];
+
+    PreparedStatement st2 =
+            con.prepareStatement(
+                    "SELECT idProducto, producto, precio, descripcion " +
+                    "FROM Catalogo"
+            );
+
+    ResultSet res =
+            st2.executeQuery();
+
+    for(int i=0;i<totalProductos;i++){
+
+        if(res.next()){
+
+            idProducto[i] =
+                    res.getInt("idProducto");
+
+            producto[i] =
+                    res.getString("producto");
+
+            precio[i] =
+                    res.getDouble("precio");
+
+            descripcion[i] =
+                    res.getString("descripcion");
+        }
+    }
+
+    for(int j=0;j<totalProductos;j++){
+%>
+
+<div>
+
+    <p>Id: <%=idProducto[j]%></p>
+
+    <p>Nombre: <%=producto[j]%></p>
+
+    <p>Precio: $<%=precio[j]%></p>
+
+    <p><%=descripcion[j]%></p>
+
+    <form action="EliminarProducto.jsp"
+          method="post">
+
+        <button type="submit">
+
+            Eliminar
+
+        </button>
+
+    </form>
+
+    <form action="ConsultarResenas.jsp?idProducto=<%=idProducto[j]%>"
+          method="post">
+
+        <button type="submit">
+
+            Ver Reseñas
+
+        </button>
+
+    </form>
+
+</div>
+
+<%
+    }
+%>
+
+</section>
+
+</main>
+
+<a href="PerfilVendedor.jsp"
+   class="btn-regresar">
+
+    ⬅ Volver al Perfil
+
+</a>
+
+<footer>
+
+    &COPY; Flower Garden - Gestión de plantas y jardinería
+
+</footer>
+
+</body>
 </html>

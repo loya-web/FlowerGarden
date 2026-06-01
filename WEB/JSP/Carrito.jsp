@@ -2,200 +2,243 @@
 <%@page import="Conectadita.Conexion"%>
 <%@page import="java.sql.*"%>
 
-<!DOCTYPE html>
-<html>
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
 
-    <head>
+    String rol =
+            (String) session.getAttribute("rol");
 
-        <meta http-equiv="Content-Type"
-              content="text/html; charset=UTF-8">
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
 
-        <title>Carrito de Compras</title>
+    if(!"CLIENTE".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
 
-        <link href="../CSS/Carrito2.css"
-              rel="stylesheet"
-              type="text/css"/>
+    Integer idUsuario =
+            (Integer) session.getAttribute("idUsuario");
 
-    </head>
+    String nombrePerfil =
+            (String) session.getAttribute("nombre");
 
-    <body>
+    Connection con =
+            Conexion.conectar();
 
-        <%
-            int idCliente = Integer.parseInt(
-                    request.getParameter("idCliente")
+    int idCliente = 0;
+
+    PreparedStatement stCliente =
+            con.prepareStatement(
+                "SELECT idCliente " +
+                "FROM Cliente " +
+                "WHERE Usuario_idUsuario = ?"
             );
 
-            int totalVentas = 0;
+    stCliente.setInt(1, idUsuario);
 
-            Connection con;
+    ResultSet rsCliente =
+            stCliente.executeQuery();
 
-            con = Conexion.conectar();
+    if(rsCliente.next()){
+        idCliente =
+                rsCliente.getInt("idCliente");
+    }
 
-            PreparedStatement st;
+    int totalVentas = 0;
 
-            st = con.prepareStatement(
+    PreparedStatement st =
+            con.prepareStatement(
                 "SELECT COUNT(*) AS totalVentas " +
                 "FROM Ventas " +
                 "WHERE Cliente_idCliente = ?"
             );
 
-            st.setInt(1, idCliente);
+    st.setInt(1, idCliente);
 
-            ResultSet rs = st.executeQuery();
+    ResultSet rs = st.executeQuery();
 
-            if(rs.next()){
+    if(rs.next()){
+        totalVentas = rs.getInt("totalVentas");
+    }
 
-                totalVentas = rs.getInt("totalVentas");
-            }
+    int[] idVenta = new int[totalVentas];
+    int[] idProducto = new int[totalVentas];
+    String[] producto = new String[totalVentas];
+    double[] precio = new double[totalVentas];
+    String[] descripcion = new String[totalVentas];
+    String[] fechaVenta = new String[totalVentas];
+    String[] estadoPago = new String[totalVentas];
+    String[] estadoEntrega = new String[totalVentas];
 
-            int[] idVenta = new int[totalVentas];
+    double total = 0;
 
-            int[] idProducto = new int[totalVentas];
+    String sql =
+            "SELECT Ventas.idVentas, " +
+            "Catalogo.idProducto, " +
+            "Catalogo.producto, " +
+            "Catalogo.precio, " +
+            "Catalogo.descripcion, " +
+            "Ventas.fechaVenta, " +
+            "Ventas.estadoPago, " +
+            "Ventas.estadoEntrega " +
+            "FROM Ventas " +
+            "INNER JOIN Catalogo " +
+            "ON Catalogo.idProducto = Ventas.Catalogo_idProducto " +
+            "WHERE Ventas.Cliente_idCliente = ? " +
+            "ORDER BY Ventas.fechaVenta DESC";
 
-            String[] producto = new String[totalVentas];
+    PreparedStatement st2 =
+            con.prepareStatement(sql);
 
-            double[] precio = new double[totalVentas];
+    st2.setInt(1, idCliente);
 
-            String[] descripcion = new String[totalVentas];
+    ResultSet res =
+            st2.executeQuery();
 
-            double total = 0;
+    for(int i = 0; i < totalVentas; i++){
 
-            String sql =
-                "SELECT Ventas.idVentas, " +
-                "Catalogo.idProducto, " +
-                "Catalogo.producto, " +
-                "Catalogo.precio, " +
-                "Catalogo.descripcion " +
-                "FROM Ventas " +
-                "INNER JOIN Catalogo " +
-                "ON Catalogo.idProducto = Ventas.Catalogo_idProducto " +
-                "WHERE Ventas.Cliente_idCliente = ?";
+        if(res.next()){
 
-            PreparedStatement st2 = con.prepareStatement(sql);
+            idVenta[i] =
+                    res.getInt("idVentas");
 
-            st2.setInt(1, idCliente);
+            idProducto[i] =
+                    res.getInt("idProducto");
 
-            ResultSet res = st2.executeQuery();
+            producto[i] =
+                    res.getString("producto");
 
-            for(int i = 0; i < totalVentas; i++){
+            precio[i] =
+                    res.getDouble("precio");
 
-                if(res.next()){
+            descripcion[i] =
+                    res.getString("descripcion");
 
-                    idVenta[i] = res.getInt("idVentas");
+            fechaVenta[i] =
+                    res.getString("fechaVenta");
 
-                    idProducto[i] = res.getInt("idProducto");
+            estadoPago[i] =
+                    res.getString("estadoPago");
 
-                    producto[i] = res.getString("producto");
+            estadoEntrega[i] =
+                    res.getString("estadoEntrega");
 
-                    precio[i] = res.getDouble("precio");
+            total += precio[i];
+        }
+    }
+%>
 
-                    descripcion[i] = res.getString("descripcion");
+<!DOCTYPE html>
+<html>
 
-                    total += precio[i];
-                }
-            }
+<head>
+
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
+
+    <title>Carrito de Compras</title>
+
+    <link href="../CSS/Carrito2.css"
+          rel="stylesheet"
+          type="text/css"/>
+
+</head>
+
+<body>
+
+<header>
+
+    <nav>
+
+        <img src="../Imagenes/Flor.png"
+             alt="Flor"
+             width="50"
+             height="50"/>
+
+        <h2>Mis Pedidos</h2>
+
+        <a href="../logout">
+
+            <img src="../Imagenes/Salida.png"
+                 alt="Salir"
+                 width="50"
+                 height="50"/>
+
+        </a>
+
+    </nav>
+
+</header>
+
+<main>
+
+    <section class="summary">
+
+        <div class="summary-card">
+
+            <h3>Total de productos</h3>
+
+            <p><%= totalVentas %></p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h3>Total estimado</h3>
+
+            <p>$ <%= total %></p>
+
+        </div>
+
+    </section>
+
+    <section class="products">
+
+        <%
+            if(totalVentas == 0){
         %>
 
-        <header>
+        <div class="empty-cart">
 
-            <nav>
+            <h2>Tu carrito está vacío</h2>
 
-                <img src="../Imagenes/Flor.png"
-                     alt="Flor"
-                     width="50"
-                     height="50"/>
+            <p>
+                Explora el catálogo y agrega productos.
+            </p>
 
-                <h2>Mis Pedidos</h2>
+        </div>
 
-                <a href="../index.html">
+        <%
+            }else{
 
-                    <img src="../Imagenes/Salida.png"
-                         alt="Salir"
-                         width="50"
-                         height="50"/>
+                for(int j = 0; j < totalVentas; j++){
+        %>
 
-                </a>
+        <div class="product-card">
 
-            </nav>
+            <div class="product-image">
 
-        </header>
+                <img src="../Imagenes/Maceta.png"
+                     alt="Producto"
+                     width="90"
+                     height="90"/>
 
-        <main>
+            </div>
 
-            <section class="summary">
+            <div class="product-info">
 
-                <div class="summary-card">
+                <div class="top-info">
 
-                    <h3>Total de productos</h3>
-
-                    <p><%= totalVentas %></p>
-
-                </div>
-
-                <div class="summary-card">
-
-                    <h3>Total estimado</h3>
-
-                    <p>$ <%= total %></p>
-
-                </div>
-
-            </section>
-
-            <section class="products">
-
-                <%
-                    if(totalVentas == 0){
-                %>
-
-                    <div class="empty-cart">
-
-                        <h2>Tu carrito está vacío</h2>
-
-                        <p>
-                            Explora el catálogo y agrega productos.
-                        </p>
-
-                    </div>
-
-                <%
-                    }else{
-
-                        for(int j = 0; j < totalVentas; j++){
-                %>
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <img src="../Imagenes/Maceta.png"
-                             alt="Producto"
-                             width="90"
-                             height="90"/>
-
-                    </div>
-
-                    <div class="product-info">
+                    <div>
 
                         <h2><%= producto[j] %></h2>
 
                         <p class="description">
                             <%= descripcion[j] %>
                         </p>
-
-                        <div class="details">
-
-                            <span>
-                                ID Venta:
-                                <%= idVenta[j] %>
-                            </span>
-
-                            <span>
-                                ID Producto:
-                                <%= idProducto[j] %>
-                            </span>
-
-                        </div>
 
                     </div>
 
@@ -207,26 +250,68 @@
 
                 </div>
 
-                <%
-                        }
-                    }
-                %>
+                <div class="details">
 
-            </section>
+                    <span>
+                        Venta #<%= idVenta[j] %>
+                    </span>
 
-        </main>
-        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
+                    <span>
+                        Producto #<%= idProducto[j] %>
+                    </span>
 
-            ⬅ Volver al Perfil
+                    <span class="date">
+                        📅 <%= fechaVenta[j] %>
+                    </span>
 
-        </a>
-        <footer>
+                </div>
 
-            &COPY; Flower Garden - Gestión de plantas y jardinería
+                <div class="status-container">
 
-        </footer>
+                    <div class="status-box pago">
 
-    </body>
+                        <h4>Estado de Pago</h4>
+
+                        <p><%= estadoPago[j] %></p>
+
+                    </div>
+
+                    <div class="status-box entrega">
+
+                        <h4>Entrega</h4>
+
+                        <p><%= estadoEntrega[j] %></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <%
+                }
+            }
+        %>
+
+    </section>
+
+</main>
+
+<a href="PerfilCliente.jsp"
+   class="btn-regresar">
+
+    ⬅ Volver al Perfil
+
+</a>
+
+<footer>
+
+    &COPY; Flower Garden - Gestión de plantas y jardinería
+
+</footer>
+
+</body>
 
 </html>

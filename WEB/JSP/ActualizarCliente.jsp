@@ -1,59 +1,127 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 <%@page import="Conectadita.Conexion"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Actualizar Cliente</title>
-    </head>
-    <body>
-           <%
-            int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-            String nombre = request.getParameter("nombre");
-            String apat = request.getParameter("ap");
-            String amat = request.getParameter("am");
-            String correo = request.getParameter("correo");
-            String cel = request.getParameter("toc");
-            String contra = request.getParameter("pwd");
-            String est = request.getParameter("est");
-            String cd = request.getParameter("cd");
-            String col = request.getParameter("col");
-            String calle = request.getParameter("calle");
-            String cp = request.getParameter("cp");
-            
-            try{
-                Connection con;
-                con = Conexion.conectar();
-                PreparedStatement sta;
-                
-                sta = con.prepareStatement
-                ("UPDATE Cliente SET email = ?, celular = ?, appat = ?, apmat = ?, nombre = ?, contrasena = ?, estado = ?, ciudad = ?, colonia = ?, calle = ?, cp = ? WHERE idCliente = ? ");
-                
-                sta.setString(1, correo);
-                sta.setString(2, cel);
-                sta.setString(3, apat);
-                sta.setString(4, amat);
-                sta.setString(5, nombre);
-                sta.setString(6, contra);
-                sta.setString(7, est);
-                sta.setString(8, cd);
-                sta.setString(9, col);
-                sta.setString(10, calle);
-                sta.setString(11, cp);
-                sta.setInt(12, idCliente);
-                
-                sta.executeUpdate();
-            %>
-            <script>
-                alert("¡Datos actualizados!");
-                window.location.href = "../JSP/PerfilCliente.jsp?nombre=<%=nombre%>";
-            </script>
-            <% 
-            }catch(Exception e){
-                System.out.println("Error: " + e.getMessage());
-            } 
-        %>
-        
-    </body>
-</html>
+
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if (usuarioSesion == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if (!"CLIENTE".equals(rol)) {
+        response.sendRedirect("../index.html");
+        return;
+    }
+
+    Integer idUsuario =
+            (Integer) session.getAttribute("idUsuario");
+
+    String nombre = request.getParameter("nombre");
+    String apat = request.getParameter("ap");
+    String amat = request.getParameter("am");
+    String correo = request.getParameter("correo");
+    String cel = request.getParameter("toc");
+    String est = request.getParameter("est");
+    String cd = request.getParameter("cd");
+    String col = request.getParameter("col");
+    String calle = request.getParameter("calle");
+    String cp = request.getParameter("cp");
+
+    Connection con = null;
+
+    try {
+
+        con = Conexion.conectar();
+
+        con.setAutoCommit(false);
+
+        // ======================================
+        // 1. ACTUALIZAR USUARIO (LOGIN NAME)
+        // ======================================
+        PreparedStatement stUsuario =
+                con.prepareStatement(
+                    "UPDATE Usuario SET usuario = ? WHERE idUsuario = ?"
+                );
+
+        stUsuario.setString(1, nombre);
+        stUsuario.setInt(2, idUsuario);
+
+        stUsuario.executeUpdate();
+
+        // ======================================
+        // 2. ACTUALIZAR CLIENTE (PERFIL)
+        // ======================================
+        PreparedStatement stCliente =
+                con.prepareStatement(
+                    "UPDATE Cliente SET " +
+                    "email = ?, " +
+                    "celular = ?, " +
+                    "appat = ?, " +
+                    "apmat = ?, " +
+                    "nombre = ?, " +
+                    "estado = ?, " +
+                    "ciudad = ?, " +
+                    "colonia = ?, " +
+                    "calle = ?, " +
+                    "cp = ? " +
+                    "WHERE Usuario_idUsuario = ?"
+                );
+
+        stCliente.setString(1, correo);
+        stCliente.setString(2, cel);
+        stCliente.setString(3, apat);
+        stCliente.setString(4, amat);
+        stCliente.setString(5, nombre);
+        stCliente.setString(6, est);
+        stCliente.setString(7, cd);
+        stCliente.setString(8, col);
+        stCliente.setString(9, calle);
+        stCliente.setInt(10, Integer.parseInt(cp));
+        stCliente.setInt(11, idUsuario);
+
+        stCliente.executeUpdate();
+
+        con.commit();
+
+        // actualizar sesión también
+        session.setAttribute("nombre", nombre);
+        session.setAttribute("usuario", nombre);
+
+%>
+
+<script>
+    alert("¡Datos actualizados correctamente!");
+    window.location.href = "../JSP/PerfilCliente.jsp";
+</script>
+
+<%
+    } catch (Exception e) {
+
+        if (con != null) {
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        out.print("Error: " + e.getMessage());
+        e.printStackTrace();
+
+    } finally {
+        if (con != null) {
+            try {
+                con.setAutoCommit(true);
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+%>

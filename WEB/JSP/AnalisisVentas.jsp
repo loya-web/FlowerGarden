@@ -2,110 +2,118 @@
 <%@page import="Conectadita.Conexion"%>
 <%@page import="java.sql.*"%>
 
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if (usuarioSesion == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if (!"VENDEDOR".equals(rol)) {
+        response.sendRedirect("../index.html");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 
-    <head>
+<head>
 
-        <meta http-equiv="Content-Type"
-              content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
 
-        <title>Analítica de Ventas</title>
+    <title>Analítica de Ventas</title>
 
-        <link href="../CSS/AnalisisVentas.css"
-              rel="stylesheet"
-              type="text/css"/>
+    <link href="../CSS/AnalisisVentas.css"
+          rel="stylesheet"
+          type="text/css"/>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <%
-            Connection con = Conexion.conectar();
+<%
+    Connection con = Conexion.conectar();
 
-            int totalVentas = 0;
-            int totalClientes = 0;
-            int totalResenas = 0;
+    int totalVentas = 0;
+    int totalClientes = 0;
+    int totalResenas = 0;
 
-            double ingresosTotales = 0;
-            double promedioCalificacion = 0;
+    double ingresosTotales = 0;
+    double promedioCalificacion = 0;
 
-            String productoMasVendido = "Sin datos";
-            int ventasProducto = 0;
+    String productoMasVendido = "Sin datos";
+    int ventasProducto = 0;
 
-            String productoMasCaro = "Sin datos";
-            double precioMasAlto = 0;
+    String productoMasCaro = "Sin datos";
+    double precioMasAlto = 0;
 
-            PreparedStatement st1 =
-                con.prepareStatement(
+    PreparedStatement st1 =
+            con.prepareStatement(
                     "SELECT COUNT(*) AS total FROM Ventas"
-                );
+            );
 
-            ResultSet rs1 = st1.executeQuery();
+    ResultSet rs1 = st1.executeQuery();
 
-            if(rs1.next()){
+    if (rs1.next()) {
+        totalVentas = rs1.getInt("total");
+    }
 
-                totalVentas = rs1.getInt("total");
-            }
-
-            PreparedStatement st2 =
-                con.prepareStatement(
+    PreparedStatement st2 =
+            con.prepareStatement(
                     "SELECT SUM(Catalogo.precio) AS ingresos " +
                     "FROM Ventas " +
                     "INNER JOIN Catalogo " +
                     "ON Catalogo.idProducto = Ventas.Catalogo_idProducto"
-                );
+            );
 
-            ResultSet rs2 = st2.executeQuery();
+    ResultSet rs2 = st2.executeQuery();
 
-            if(rs2.next()){
+    if (rs2.next()) {
+        ingresosTotales = rs2.getDouble("ingresos");
+    }
 
-                ingresosTotales =
-                    rs2.getDouble("ingresos");
-            }
-
-            PreparedStatement st3 =
-                con.prepareStatement(
+    PreparedStatement st3 =
+            con.prepareStatement(
                     "SELECT COUNT(*) AS clientes FROM Cliente"
-                );
+            );
 
-            ResultSet rs3 = st3.executeQuery();
+    ResultSet rs3 = st3.executeQuery();
 
-            if(rs3.next()){
+    if (rs3.next()) {
+        totalClientes = rs3.getInt("clientes");
+    }
 
-                totalClientes =
-                    rs3.getInt("clientes");
-            }
-
-            PreparedStatement st4 =
-                con.prepareStatement(
+    PreparedStatement st4 =
+            con.prepareStatement(
                     "SELECT COUNT(*) AS resenas FROM Resenas"
-                );
+            );
 
-            ResultSet rs4 = st4.executeQuery();
+    ResultSet rs4 = st4.executeQuery();
 
-            if(rs4.next()){
+    if (rs4.next()) {
+        totalResenas = rs4.getInt("resenas");
+    }
 
-                totalResenas =
-                    rs4.getInt("resenas");
-            }
+    PreparedStatement st5 =
+            con.prepareStatement(
+                    "SELECT AVG(calificacion) AS promedio FROM Resenas"
+            );
 
-            PreparedStatement st5 =
-                con.prepareStatement(
-                    "SELECT AVG(calificacion) AS promedio " +
-                    "FROM Resenas"
-                );
+    ResultSet rs5 = st5.executeQuery();
 
-            ResultSet rs5 = st5.executeQuery();
+    if (rs5.next()) {
+        promedioCalificacion = rs5.getDouble("promedio");
+    }
 
-            if(rs5.next()){
-
-                promedioCalificacion =
-                    rs5.getDouble("promedio");
-            }
-
-            PreparedStatement st6 =
-                con.prepareStatement(
+    PreparedStatement st6 =
+            con.prepareStatement(
                     "SELECT producto, COUNT(*) AS total " +
                     "FROM Ventas " +
                     "INNER JOIN Catalogo " +
@@ -113,143 +121,141 @@
                     "GROUP BY producto " +
                     "ORDER BY total DESC " +
                     "LIMIT 1"
-                );
+            );
 
-            ResultSet rs6 = st6.executeQuery();
+    ResultSet rs6 = st6.executeQuery();
 
-            if(rs6.next()){
+    if (rs6.next()) {
+        productoMasVendido = rs6.getString("producto");
+        ventasProducto = rs6.getInt("total");
+    }
 
-                productoMasVendido =
-                    rs6.getString("producto");
-
-                ventasProducto =
-                    rs6.getInt("total");
-            }
-
-            PreparedStatement st7 =
-                con.prepareStatement(
+    PreparedStatement st7 =
+            con.prepareStatement(
                     "SELECT producto, precio " +
                     "FROM Catalogo " +
                     "ORDER BY precio DESC " +
                     "LIMIT 1"
-                );
+            );
 
-            ResultSet rs7 = st7.executeQuery();
+    ResultSet rs7 = st7.executeQuery();
 
-            if(rs7.next()){
+    if (rs7.next()) {
+        productoMasCaro = rs7.getString("producto");
+        precioMasAlto = rs7.getDouble("precio");
+    }
+%>
 
-                productoMasCaro =
-                    rs7.getString("producto");
+<header>
 
-                precioMasAlto =
-                    rs7.getDouble("precio");
-            }
-        %>
+    <nav>
 
-        <header>
+        <img src="../Imagenes/Flor.png"
+             alt="Flor"
+             width="50"
+             height="50"/>
 
-            <nav>
+        <h2>Analítica de Ventas</h2>
 
-                <img src="../Imagenes/Flor.png"
-                     alt="Flor"
-                     width="50"
-                     height="50"/>
+        <a href="../logout">
 
-                <h2>Analítica de Ventas</h2>
+            <img src="../Imagenes/Salida.png"
+                 alt="Salir"
+                 width="50"
+                 height="50"/>
 
-                <a href="../index.html">
-
-                    <img src="../Imagenes/Salida.png"
-                         alt="Salir"
-                         width="50"
-                         height="50"/>
-
-                </a>
-
-            </nav>
-
-        </header>
-
-        <main>
-
-            <section class="dashboard">
-
-                <div class="card">
-
-                    <h3>Total de Ventas</h3>
-
-                    <p><%= totalVentas %></p>
-
-                </div>
-
-                <div class="card">
-
-                    <h3>Ingresos Totales</h3>
-
-                    <p>$ <%= ingresosTotales %></p>
-
-                </div>
-
-                <div class="card">
-
-                    <h3>Clientes Registrados</h3>
-
-                    <p><%= totalClientes %></p>
-
-                </div>
-
-                <div class="card">
-
-                    <h3>Total de Reseñas</h3>
-
-                    <p><%= totalResenas %></p>
-
-                </div>
-
-                <div class="card wide">
-
-                    <h3>Producto Más Vendido</h3>
-
-                    <p><%= productoMasVendido %></p>
-
-                    <span>
-                        <%= ventasProducto %> ventas
-                    </span>
-
-                </div>
-
-                <div class="card wide">
-
-                    <h3>Producto Más Caro</h3>
-
-                    <p><%= productoMasCaro %></p>
-
-                    <span>
-                        $ <%= precioMasAlto %>
-                    </span>
-
-                </div>
-
-                <div class="card wide">
-
-                    <h3>Promedio de Calificaciones</h3>
-
-                    <p>
-                        ⭐
-                        <%= String.format("%.1f", promedioCalificacion) %>
-                    </p>
-
-                </div>
-
-            </section>
-
-        </main>
-        <a href="PerfilVendedor.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
-            ⬅ Volver al Perfil
         </a>
-        <footer>
-            &COPY; Flower Garden - Gestión de plantas y jardinería
-        </footer>
-    </body>
+
+    </nav>
+
+</header>
+
+<main>
+
+    <section class="dashboard">
+
+        <div class="card">
+
+            <h3>Total de Ventas</h3>
+
+            <p><%= totalVentas %></p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Ingresos Totales</h3>
+
+            <p>$ <%= ingresosTotales %></p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Clientes Registrados</h3>
+
+            <p><%= totalClientes %></p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Total de Reseñas</h3>
+
+            <p><%= totalResenas %></p>
+
+        </div>
+
+        <div class="card wide">
+
+            <h3>Producto Más Vendido</h3>
+
+            <p><%= productoMasVendido %></p>
+
+            <span>
+                <%= ventasProducto %> ventas
+            </span>
+
+        </div>
+
+        <div class="card wide">
+
+            <h3>Producto Más Caro</h3>
+
+            <p><%= productoMasCaro %></p>
+
+            <span>
+                $ <%= precioMasAlto %>
+            </span>
+
+        </div>
+
+        <div class="card wide">
+
+            <h3>Promedio de Calificaciones</h3>
+
+            <p>
+                ⭐ <%= String.format("%.1f", promedioCalificacion) %>
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<a href="PerfilVendedor.jsp"
+   class="btn-regresar">
+
+    ⬅ Volver al Perfil
+
+</a>
+
+<footer>
+
+    &COPY; Flower Garden - Gestión de plantas y jardinería
+
+</footer>
+
+</body>
 </html>

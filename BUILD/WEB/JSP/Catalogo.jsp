@@ -2,6 +2,23 @@
 <%@page import="Conectadita.Conexion"%>
 <%@page import="java.sql.*"%>
 <!DOCTYPE html>
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if(!"CLIENTE".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,11 +39,28 @@
         <main>
           
             <section>
-                <%
-                    String idCliente = request.getParameter("idCliente");
+                <%  
+                    Integer idUsuario =
+                    (Integer) session.getAttribute("idUsuario");
+                    String nombre = (String) session.getAttribute("nombre");
+                    int idCliente = 0;
                     int totalProductos = 0;
+                    
                     Connection con;
                     con = Conexion.conectar();
+                    
+                    PreparedStatement stCliente =
+                        con.prepareStatement(
+                            "SELECT idCliente " +
+                            "FROM Cliente " +
+                            "WHERE Usuario_idUsuario = ?"
+                        );
+                    stCliente.setInt(1, idUsuario);
+                    ResultSet rsCliente = stCliente.executeQuery();
+                    if(rsCliente.next()){
+                        idCliente = rsCliente.getInt("idCliente");
+                    }
+                    
                     PreparedStatement st;
                     st = con.prepareStatement("SELECT COUNT(*) AS totalProductos FROM Catalogo;");
                     
@@ -59,13 +93,13 @@
                         out.println("<p>Precio: $"+precio[j]+"</p>");
                         out.println("<p>"+descripcion[j]+"</p>");
                         %>
-                        <form action="Comprar.jsp?idCliente=<%out.print(idCliente);%>&idProducto=<%out.print(idProducto[j]);%>" method="post" >
+                        <form action="Comprar.jsp?idProducto=<%=idProducto[j]%>" method="post">
                         <%
                         //out.println("<form action='Comprar.jsp?idCliente="+idCliente+",&idProducto="+idProducto[j]+"'>");
                         out.println("<button type='submit'>Comprar</button>");
                         %></form><%
                         //out.println("</form>");
-                        out.println("<form action='EscribirResena.jsp?idProducto="+idProducto[j]+"&idCliente="+idCliente+"&producto="+producto[j]+"&precio="+precio[j]+"&nombre="+request.getParameter("nombre")+"' method='post'>");
+                        out.println("<form action='EscribirResena.jsp?idProducto="+idProducto[j]+"&producto="+producto[j]+"&precio="+precio[j]+"' method='post'>");
                         out.println("<button type='submit'>Reseñar</button>");
                         out.println("</form>");
                         out.println("</div>");
@@ -75,7 +109,7 @@
             
             
         </main>
-        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
+        <a href="PerfilCliente.jsp" 
            accesskey=""class="btn-regresar">
 
             ⬅ Volver al Perfil

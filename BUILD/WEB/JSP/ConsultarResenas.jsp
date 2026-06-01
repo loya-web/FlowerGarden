@@ -2,6 +2,24 @@
 <%@page import="Conectadita.Conexion"%>
 <%@page import="java.sql.*"%>
 
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if(!"VENDEDOR".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -27,16 +45,14 @@
 
             int totalResenas = 0;
 
-            Connection con;
-
-            con = Conexion.conectar();
+            Connection con = Conexion.conectar();
 
             PreparedStatement st;
 
             st = con.prepareStatement(
                 "SELECT COUNT(*) AS totalResenas " +
                 "FROM Resenas " +
-                "WHERE Catalogo_idProducto = ?;"
+                "WHERE Catalogo_idProducto = ?"
             );
 
             st.setInt(1, idProducto);
@@ -48,7 +64,8 @@
                 totalResenas = rs.getInt("totalResenas");
             }
 
-            int[] idResena = new int[totalResenas];
+            int[] idResena =
+                new int[totalResenas];
 
             String[] descripcionResena =
                 new String[totalResenas];
@@ -71,14 +88,15 @@
                 "FROM Resenas " +
                 "INNER JOIN Cliente " +
                 "ON Cliente.idCliente = Resenas.Cliente_idCliente " +
-                "WHERE Catalogo_idProducto = ?;";
+                "WHERE Catalogo_idProducto = ?";
 
             PreparedStatement st2 =
                 con.prepareStatement(sql);
 
             st2.setInt(1, idProducto);
 
-            ResultSet res = st2.executeQuery();
+            ResultSet res =
+                st2.executeQuery();
 
             for(int i = 0; i < totalResenas; i++){
 
@@ -116,7 +134,7 @@
 
                 <h2>Panel de Reseñas</h2>
 
-                <a href="../index.html">
+                <a href="../logout">
 
                     <img src="../Imagenes/Salida.png"
                          alt="Salir"
@@ -146,7 +164,19 @@
             <section class="reviews-container">
 
                 <%
-                    for(int j = 0; j < totalResenas; j++){
+                    if(totalResenas == 0){
+                %>
+
+                    <div class="review-card">
+
+                        <h2>No hay reseñas para este producto</h2>
+
+                    </div>
+
+                <%
+                    }else{
+
+                        for(int j = 0; j < totalResenas; j++){
                 %>
 
                 <div class="review-card">
@@ -205,18 +235,21 @@
                 </div>
 
                 <%
+                        }
                     }
                 %>
 
             </section>
 
         </main>
-        <a href="PerfilVendedor.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
+
+        <a href="PerfilVendedor.jsp"
+           class="btn-regresar">
 
             ⬅ Volver al Perfil
 
         </a>
+
         <footer>
 
             &COPY; Flower Garden - Gestión de plantas y jardinería

@@ -2,286 +2,326 @@
 <%@page import="Conectadita.Conexion"%>
 <%@page import="java.sql.*"%>
 
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if(!"VENDEDOR".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 
-    <head>
+<head>
 
-        <meta http-equiv="Content-Type"
-              content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
 
-        <title>Consultar Ventas</title>
+    <title>Consultar Ventas</title>
 
-        <link href="../CSS/ConsultarVentas.css"
-              rel="stylesheet"
-              type="text/css"/>
+    <link href="../CSS/ConsultarVentas.css"
+          rel="stylesheet"
+          type="text/css"/>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <%
-            int totalVentas = 0;
+<%
+    int totalVentas = 0;
 
-            Connection con;
+    Connection con =
+            Conexion.conectar();
 
-            con = Conexion.conectar();
-
-            PreparedStatement st;
-
-            st = con.prepareStatement(
-                "SELECT COUNT(*) AS totalVentas FROM Ventas;"
+    PreparedStatement st =
+            con.prepareStatement(
+                    "SELECT COUNT(*) AS totalVentas " +
+                    "FROM Ventas"
             );
 
-            ResultSet rs = st.executeQuery();
+    ResultSet rs =
+            st.executeQuery();
 
-            if(rs.next()){
+    if(rs.next()){
 
-                totalVentas = rs.getInt("totalVentas");
-            }
+        totalVentas =
+                rs.getInt("totalVentas");
+    }
 
-            int[] idVentas = new int[totalVentas];
-            int[] idProducto = new int[totalVentas];
+    String sql =
+            "SELECT idVentas, producto, precio, descripcion, " +
+            "nombre, appat, apmat, email, celular, " +
+            "estado, ciudad, colonia, calle, cp, " +
+            "fechaVenta, estadoPago, estadoEntrega " +
+            "FROM Ventas " +
+            "INNER JOIN Catalogo " +
+            "ON Catalogo.idProducto = Ventas.Catalogo_idProducto " +
+            "INNER JOIN Cliente " +
+            "ON Cliente.idCliente = Ventas.Cliente_idCliente";
 
-            String[] producto = new String[totalVentas];
+    PreparedStatement st2 =
+            con.prepareStatement(sql);
 
-            double[] precio = new double[totalVentas];
+    ResultSet res =
+            st2.executeQuery();
 
-            String[] descripcion = new String[totalVentas];
+    double totalIngresos = 0;
+%>
 
-            int[] idCliente = new int[totalVentas];
+<header>
 
-            String[] nombre = new String[totalVentas];
+    <nav>
 
-            String[] appat = new String[totalVentas];
+        <img src="../Imagenes/Flor.png"
+             alt="Flor"
+             width="50"
+             height="50"/>
 
-            String[] apmat = new String[totalVentas];
+        <h2>Panel de Ventas</h2>
 
-            String[] email = new String[totalVentas];
+        <a href="../logout">
 
-            String[] celular = new String[totalVentas];
+            <img src="../Imagenes/Salida.png"
+                 alt="Salir"
+                 width="50"
+                 height="50"/>
 
-            String[] estado = new String[totalVentas];
-
-            String[] ciudad = new String[totalVentas];
-
-            String[] colonia = new String[totalVentas];
-
-            String[] calle = new String[totalVentas];
-
-            int[] cp = new int[totalVentas];
-
-            double totalIngresos = 0;
-
-            String sql =
-                "SELECT idVentas, idProducto, producto, precio, descripcion, " +
-                "idCliente, nombre, appat, apmat, email, celular, " +
-                "estado, ciudad, colonia, calle, cp " +
-                "FROM Ventas " +
-                "INNER JOIN Catalogo " +
-                "ON Catalogo.idProducto = Ventas.Catalogo_idProducto " +
-                "INNER JOIN Cliente " +
-                "ON Cliente.idCliente = Ventas.Cliente_idCliente;";
-
-            PreparedStatement st2 = con.prepareStatement(sql);
-
-            ResultSet res = st2.executeQuery();
-
-            for(int i = 0; i < totalVentas; i++){
-
-                if(res.next()){
-
-                    idVentas[i] = res.getInt("idVentas");
-
-                    idProducto[i] = res.getInt("idProducto");
-
-                    producto[i] = res.getString("producto");
-
-                    precio[i] = res.getDouble("precio");
-
-                    descripcion[i] = res.getString("descripcion");
-
-                    idCliente[i] = res.getInt("idCliente");
-
-                    nombre[i] = res.getString("nombre");
-
-                    appat[i] = res.getString("appat");
-
-                    apmat[i] = res.getString("apmat");
-
-                    email[i] = res.getString("email");
-
-                    celular[i] = res.getString("celular");
-
-                    estado[i] = res.getString("estado");
-
-                    ciudad[i] = res.getString("ciudad");
-
-                    colonia[i] = res.getString("colonia");
-
-                    calle[i] = res.getString("calle");
-
-                    cp[i] = res.getInt("cp");
-
-                    totalIngresos += precio[i];
-                }
-            }
-        %>
-
-        <header>
-
-            <nav>
-
-                <img src="../Imagenes/Flor.png"
-                     alt="Flor"
-                     width="50"
-                     height="50"/>
-
-                <h2>Panel de Ventas</h2>
-
-                <a href="../index.html">
-
-                    <img src="../Imagenes/Salida.png"
-                         alt="Salir"
-                         width="50"
-                         height="50"/>
-
-                </a>
-
-            </nav>
-
-        </header>
-
-        <main>
-
-            <section class="summary">
-
-                <div class="summary-card">
-
-                    <h3>Total de Ventas</h3>
-
-                    <p><%= totalVentas %></p>
-
-                </div>
-
-                <div class="summary-card">
-
-                    <h3>Ingresos Totales</h3>
-
-                    <p>$ <%= totalIngresos %></p>
-
-                </div>
-
-            </section>
-
-            <section class="sales-container">
-
-                <%
-                    for(int j = 0; j < totalVentas; j++){
-                %>
-
-                <div class="sale-card">
-
-                    <div class="top">
-
-                        <div>
-
-                            <h2>
-                                <%= producto[j] %>
-                            </h2>
-
-                            <p class="sale-id">
-                                Venta #<%= idVentas[j] %>
-                            </p>
-
-                        </div>
-
-                        <div class="price">
-
-                            $ <%= precio[j] %>
-
-                        </div>
-
-                    </div>
-
-                    <div class="description">
-
-                        <p>
-                            <%= descripcion[j] %>
-                        </p>
-
-                    </div>
-
-                    <div class="customer">
-
-                        <h3>Cliente</h3>
-
-                        <p>
-                            <%= nombre[j] %>
-                            <%= appat[j] %>
-                            <%= apmat[j] %>
-                        </p>
-
-                        <span>
-                            ID Cliente:
-                            <%= idCliente[j] %>
-                        </span>
-
-                    </div>
-
-                    <div class="contact-grid">
-
-                        <div class="info-box">
-
-                            <h4>Correo</h4>
-
-                            <p>
-                                <%= email[j] %>
-                            </p>
-
-                        </div>
-
-                        <div class="info-box">
-
-                            <h4>Celular</h4>
-
-                            <p>
-                                <%= celular[j] %>
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="address">
-
-                        <h4>Dirección</h4>
-
-                        <p>
-                            <%= calle[j] %>,
-                            <%= colonia[j] %>,
-                            <%= ciudad[j] %>,
-                            <%= estado[j] %>,
-                            C.P. <%= cp[j] %>
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <%
-                    }
-                %>
-
-            </section>
-
-        </main>
-        <a href="PerfilVendedor.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
-            ⬅ Volver al Perfil
         </a>
-        <footer>
-            &COPY; Flower Garden - Gestión de plantas y jardinería
-        </footer>
-    </body>
+
+    </nav>
+
+</header>
+
+<main>
+
+<section class="summary">
+
+    <div class="summary-card">
+
+        <h3>Total de Ventas</h3>
+
+        <p><%= totalVentas %></p>
+
+    </div>
+
+</section>
+
+<section class="sales-container">
+
+<%
+    while(res.next()){
+
+        totalIngresos +=
+                res.getDouble("precio");
+%>
+
+<div class="sale-card">
+
+    <div class="top">
+
+        <div>
+
+            <h2>
+                <%= res.getString("producto") %>
+            </h2>
+
+            <p class="sale-id">
+                Venta #<%= res.getInt("idVentas") %>
+            </p>
+
+        </div>
+
+        <div class="price">
+
+            $ <%= res.getDouble("precio") %>
+
+        </div>
+
+    </div>
+
+    <div class="description">
+
+        <p>
+            <%= res.getString("descripcion") %>
+        </p>
+
+    </div>
+
+    <div class="extra-info">
+
+        <div class="info-mini">
+
+            <h4>Fecha de Venta</h4>
+
+            <p>
+                <%= res.getString("fechaVenta") %>
+            </p>
+
+        </div>
+
+        <div class="info-mini">
+
+            <h4>Estado de Pago</h4>
+
+            <p class="estado">
+                <%= res.getString("estadoPago") %>
+            </p>
+
+        </div>
+
+        <div class="info-mini">
+
+            <h4>Entrega</h4>
+
+            <p class="estado">
+                <%= res.getString("estadoEntrega") %>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="customer">
+
+        <h3>Cliente</h3>
+
+        <p>
+
+            <%= res.getString("nombre") %>
+            <%= res.getString("appat") %>
+            <%= res.getString("apmat") %>
+
+        </p>
+
+    </div>
+
+    <div class="contact-grid">
+
+        <div class="info-box">
+
+            <h4>Correo</h4>
+
+            <p>
+                <%= res.getString("email") %>
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h4>Celular</h4>
+
+            <p>
+                <%= res.getString("celular") %>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="address">
+
+        <h4>Dirección</h4>
+
+        <p>
+
+            <%= res.getString("calle") %>,
+            <%= res.getString("colonia") %>,
+            <%= res.getString("ciudad") %>,
+            <%= res.getString("estado") %>,
+            C.P. <%= res.getInt("cp") %>
+
+        </p>
+
+    </div>
+
+    <form class="update-form"
+          action="ActualizarEstadoVenta.jsp"
+          method="post">
+
+        <input type="hidden"
+               name="idVenta"
+               value="<%=res.getInt("idVentas")%>">
+
+        <div class="select-group">
+
+            <div>
+
+                <label>
+                    Estado de Pago
+                </label>
+
+                <select name="estadoPago">
+
+                    <option>Pagado</option>
+
+                    <option>No pagado</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>
+                    Estado de Entrega
+                </label>
+
+                <select name="estadoEntrega">
+
+                    <option>Pendiente</option>
+
+                    <option>En camino</option>
+
+                    <option>Entregado</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <button type="submit">
+
+            Actualizar Estado
+
+        </button>
+
+    </form>
+
+</div>
+
+<%
+    }
+%>
+
+</section>
+
+</main>
+
+<a href="PerfilVendedor.jsp"
+   class="btn-regresar">
+
+   ⬅ Volver al Perfil
+
+</a>
+
+<footer>
+
+    &COPY; Flower Garden - Gestión de plantas y jardinería
+
+</footer>
+
+</body>
 </html>

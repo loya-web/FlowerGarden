@@ -1,64 +1,124 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 <%@page import="Conectadita.Conexion"%>
+
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    Integer idUsuario =
+            (Integer) session.getAttribute("idUsuario");
+
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if(!"CLIENTE".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
+
+    Connection con = Conexion.conectar();
+
+    PreparedStatement stCliente =
+            con.prepareStatement(
+                    "SELECT idCliente, nombre " +
+                    "FROM Cliente " +
+                    "WHERE Usuario_idUsuario = ?"
+            );
+
+    stCliente.setInt(1, idUsuario);
+
+    ResultSet rs = stCliente.executeQuery();
+
+    int idCliente = 0;
+    String nombre = "";
+
+    if(rs.next()){
+        idCliente = rs.getInt("idCliente");
+        nombre = rs.getString("nombre");
+    }else{
+        response.sendRedirect("PerfilCliente.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Baja de Datos</title>
-        <link href="../CSS/Baja3.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>Baja de Datos</title>
+    <link href="../CSS/Baja3.css" rel="stylesheet" type="text/css"/>
+</head>
 
-        <header>
-            <nav>
+<body>
 
-                <img src="../Imagenes/Flor.png" alt="Logo" width="50" height="50"/>
-                <p><b>Eliminar Cuenta</b></p>
-                <a href="../JSP/ContactoVendedor.jsp">
-                    <img src="../Imagenes/Telefono.png" alt="Telefono" width="50" height="50" />
-                </a>
+<header>
+    <nav>
 
-            </nav>
-        </header>
+        <img src="../Imagenes/Flor.png"
+             alt="Logo"
+             width="50"
+             height="50"/>
 
-        <main>
-            <section>
-                 <%
-                    int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+        <p><b>Eliminar Cuenta</b></p>
 
-                    Connection con;
-                    con = Conexion.conectar();
-                    PreparedStatement sta;
-                   
-                
-                    sta = con.prepareStatement("SELECT * FROM Cliente WHERE idCliente = ?");
-                    sta.setInt(1, idCliente);
-                    
-                    ResultSet rs = sta.executeQuery();
-                    rs.next();
-                    %>
-                    
-                <p><%= rs.getString("nombre") %></p>
-                <p>¡Esta acción es IRREVERSIBLE!</p>
-
-                <form action="../JSP/BorrarCliente.jsp?idCliente=<%=idCliente%>" method="post">
-
-                    <p>¿ Estas seguro de eliminar tu usuario ?</p>
-                    <button type="submit" class="Confirmar">Sí, Eliminar Usuario</button>
-                    <a href="../JSP/PerfilCliente.jsp?nombre=<%=rs.getString("nombre")%>"> Cancelar y Volver </a>
-                </form>
-            </section>
-        </main>
-        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
-
-            ⬅ Volver al Perfil
-
+        <a href="../JSP/ContactoVendedor.jsp">
+            <img src="../Imagenes/Telefono.png"
+                 alt="Telefono"
+                 width="50"
+                 height="50"/>
         </a>
-        <footer>
-            &COPY; Flower Garden - Gestión de plantas y jardinería
-        </footer>
 
-    </body>
+    </nav>
+</header>
+
+<main>
+
+    <section>
+
+        <p><%= nombre %></p>
+
+        <p>¡Esta acción es IRREVERSIBLE!</p>
+
+        <form action="../JSP/BorrarCliente.jsp"
+              method="post">
+
+            <p>
+                ¿Estás seguro de eliminar tu usuario?
+            </p>
+
+            <button type="submit"
+                    class="Confirmar">
+
+                Sí, Eliminar Usuario
+
+            </button>
+
+            <a href="PerfilCliente.jsp">
+                Cancelar y Volver
+            </a>
+
+        </form>
+
+    </section>
+
+</main>
+
+<a href="PerfilCliente.jsp"
+   class="btn-regresar">
+
+    ⬅ Volver al Perfil
+
+</a>
+
+<footer>
+    &COPY; Flower Garden - Gestión de plantas y jardinería
+</footer>
+
+</body>
 </html>

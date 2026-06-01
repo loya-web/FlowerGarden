@@ -1,106 +1,201 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 <%@page import="Conectadita.Conexion"%>
+
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if (usuarioSesion == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if (!"CLIENTE".equals(rol)) {
+        response.sendRedirect("../index.html");
+        return;
+    }
+
+    Integer idUsuario =
+            (Integer) session.getAttribute("idUsuario");
+
+    Connection con =
+            Conexion.conectar();
+
+    PreparedStatement sta =
+            con.prepareStatement(
+                "SELECT * FROM Cliente WHERE Usuario_idUsuario = ?"
+            );
+
+    sta.setInt(1, idUsuario);
+
+    ResultSet rs = sta.executeQuery();
+
+    if (!rs.next()) {
+        out.print("No se encontró el cliente");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cambio de Datos</title>
-        <link href="../CSS/Cambio1.css" rel="stylesheet" type="text/css"/>
-    </head>
-   
-    
-     <body>
-        <%
-            String idCliente = request.getParameter("idCliente");
-            Connection con;
-            con = Conexion.conectar();
-            PreparedStatement sta;
-            sta = con.prepareStatement("SELECT * FROM Cliente WHERE idCliente = ?");
-            sta.setString(1,idCliente);
-            ResultSet rs = sta.executeQuery();
-            rs.next();
-        %>
-        <main>
-        <section>
 
-            <p>Cambio de Datos</p>
-         
-            <form action="../JSP/ActualizarCliente.jsp?idCliente=<%=idCliente%>" method="post">
-                
-                <div class="campo">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" value="<%=rs.getString("nombre")%>" required><br>
-                </div>
-                
-                <div class="campo">
-                    <label for="ap">Apellido Paterno:</label>
-                    <input type="text" name="ap" id="ap" value="<%=rs.getString("appat")%>" required><br>
-                </div>
+<head>
 
-                <div class="campo">
-                    <label for="am">Apellido Materno:</label>
-                    <input type="text" name="am" id="am" value="<%=rs.getString("apmat")%>" required><br>
-                </div>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
 
-                <div class="campo">
-                    <label for="correo">Correo:</label>
-                    <input type="email" name="correo" id="correo" value="<%=rs.getString("email")%>" required><br>
-                </div>
+    <title>Cambio de Datos</title>
 
-                <div class="campo">
-                    <label for="toc">Teléfono o Celular:</label>
-                    <input type="number" name="toc" id="toc" value="<%=rs.getString("celular")%>" required><br>
-                </div>
+    <link href="../CSS/Cambio1.css"
+          rel="stylesheet"
+          type="text/css"/>
 
-                <div class="campo">
-                    <label for="pwd">Contraseña:</label>
-                    <input type="text" name="pwd" id="pwd" value="<%=rs.getString("contrasena")%>" required><br>
-                </div>
+</head>
 
-                    <p>Dirección</p>
+<body>
 
-                <div class="campo">
-                    <label for="est">Estado:</label>
-                    <input type="text" name="est" id="est" value="<%=rs.getString("estado")%>" required><br>
-                </div>
+<main>
 
-                <div class="campo">
-                    <label for="cd">Ciudad:</label>
-                    <input type="text" name="cd" id="cd" value="<%=rs.getString("ciudad")%>" required><br>
-                </div>
+<section>
 
-                <div class="campo">
-                    <label for="col">Colonia:</label>
-                    <input type="text" name="col" id="col" value="<%=rs.getString("colonia")%>" required><br>
-                </div>
+    <p>Cambio de Datos</p>
 
-                <div class="campo">
-                    <label for="calle">Calle:</label>
-                    <input type="text" name="calle" id="calle" value="<%=rs.getString("calle")%>" required><br>
-                </div>
+    <form action="../JSP/ActualizarCliente.jsp"
+          method="post">
 
-                <div class="campo">
-                    <label for="cp">Código Postal:</label>
-                    <input type="number" name="cp" id="cp" value="<%=rs.getInt("cp")%>" required><br>
-                </div>
+        <div class="campo">
 
-                <button type="submit">Cambiar Datos</button>
-              
-            </form>
+            <label>Nombre:</label>
 
-        </section>
-        </main>
-        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
+            <input type="text"
+                   name="nombre"
+                   value="<%=rs.getString("nombre")%>"
+                   required>
 
-            ⬅ Volver al Perfil
+        </div>
 
-        </a>
-        <footer>
-            &COPY; Flower Garden - Gestión de plantas y jardinería
-        </footer>
+        <div class="campo">
 
-    </body>
-    
+            <label>Apellido Paterno:</label>
+
+            <input type="text"
+                   name="ap"
+                   value="<%=rs.getString("appat")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Apellido Materno:</label>
+
+            <input type="text"
+                   name="am"
+                   value="<%=rs.getString("apmat")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Correo:</label>
+
+            <input type="email"
+                   name="correo"
+                   value="<%=rs.getString("email")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Teléfono:</label>
+
+            <input type="number"
+                   name="toc"
+                   value="<%=rs.getString("celular")%>"
+                   required>
+
+        </div>
+
+        <p>Dirección</p>
+
+        <div class="campo">
+
+            <label>Estado:</label>
+
+            <input type="text"
+                   name="est"
+                   value="<%=rs.getString("estado")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Ciudad:</label>
+
+            <input type="text"
+                   name="cd"
+                   value="<%=rs.getString("ciudad")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Colonia:</label>
+
+            <input type="text"
+                   name="col"
+                   value="<%=rs.getString("colonia")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Calle:</label>
+
+            <input type="text"
+                   name="calle"
+                   value="<%=rs.getString("calle")%>"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Código Postal:</label>
+
+            <input type="number"
+                   name="cp"
+                   value="<%=rs.getInt("cp")%>"
+                   required>
+
+        </div>
+
+        <button type="submit">
+            Cambiar Datos
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+<a href="PerfilCliente.jsp"
+   class="btn-regresar">
+
+    ⬅ Volver al Perfil
+
+</a>
+
+</body>
+
 </html>

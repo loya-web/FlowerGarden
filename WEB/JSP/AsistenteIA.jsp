@@ -1,5 +1,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
+    String usuarioSesion =
+            (String) session.getAttribute("usuario");
+
+    String rol =
+            (String) session.getAttribute("rol");
+
+    if(usuarioSesion == null){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+
+    if(!"CLIENTE".equals(rol)){
+        response.sendRedirect("../index.html");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +47,7 @@
 
                 <h2>Asistente IA de Jardinería</h2>
 
-                <a href="../index.html">
+                <a href="../logout">
 
                     <img src="../Imagenes/Salida.png"
                          alt="Salir"
@@ -81,14 +99,14 @@
                                     "¡Hola! 🌿 Soy el asistente inteligente de Flower Garden. Puedes preguntarme sobre riego, cactus, flores, plagas, fertilizantes, luz solar y cuidados generales.";
 
                             }
-                            
+
                             else if(
                                 p.contains("regar") &&
                                 p.contains("todos los dias")
                             ){
 
                                 respuesta =
-                                    "No todas las plantas deben regarse diariamente 🌱. El exceso de agua puede pudrir las raíces. Lo ideal es revisar si la tierra está seca antes de volver a regar.";
+                                    "No todas las plantas deben regarse diariamente. El exceso de agua puede pudrir las raíces. Lo ideal es revisar si la tierra está seca antes de volver a regar.";
 
                             }
 
@@ -107,7 +125,7 @@
                             ){
 
                                 respuesta =
-                                    "Los cactus necesitan mucha luz solar ☀️ y poca agua. Riégalos únicamente cuando la tierra esté completamente seca para evitar que se pudran.";
+                                    "Los cactus necesitan mucha luz solar y poca agua. Riégalos únicamente cuando la tierra esté completamente seca para evitar que se pudran.";
 
                             }
 
@@ -137,7 +155,7 @@
                             ){
 
                                 respuesta =
-                                    "Las rosas necesitan al menos 6 horas de sol al día 🌹 y riego frecuente. También es importante podarlas regularmente para estimular nuevas flores.";
+                                    "Las rosas necesitan al menos 6 horas de sol al día y riego frecuente. También es importante podarlas regularmente para estimular nuevas flores.";
 
                             }
 
@@ -147,7 +165,7 @@
                             ){
 
                                 respuesta =
-                                    "Los girasoles aman el sol ☀️. Necesitan bastante luz directa y riego moderado para crecer fuertes y saludables.";
+                                    "Los girasoles aman el sol. Necesitan bastante luz directa y riego moderado para crecer fuertes y saludables.";
 
                             }
 
@@ -167,7 +185,7 @@
                             ){
 
                                 respuesta =
-                                    "Las hojas amarillas suelen indicar exceso de agua 💧 o falta de nutrientes. También pueden aparecer por mala iluminación.";
+                                    "Las hojas amarillas suelen indicar exceso de agua o falta de nutrientes. También pueden aparecer por mala iluminación.";
 
                             }
 
@@ -187,7 +205,7 @@
                             ){
 
                                 respuesta =
-                                    "La mayoría de plantas necesitan buena iluminación 🌞, pero no todas toleran el sol directo. Las plantas de interior prefieren luz indirecta.";
+                                    "La mayoría de plantas necesitan buena iluminación, pero no todas toleran el sol directo. Las plantas de interior prefieren luz indirecta.";
 
                             }
 
@@ -216,7 +234,7 @@
                             ){
 
                                 respuesta =
-                                    "Los hongos aparecen por exceso de humedad 🍄. Reduce el riego y mejora la ventilación alrededor de la planta.";
+                                    "Los hongos aparecen por exceso de humedad. Reduce el riego y mejora la ventilación alrededor de la planta.";
 
                             }
 
@@ -235,7 +253,7 @@
                             ){
 
                                 respuesta =
-                                    "Las plantas con flores necesitan buena iluminación, nutrientes y riego moderado 🌸 para florecer correctamente.";
+                                    "Las plantas con flores necesitan buena iluminación, nutrientes y riego moderado para florecer correctamente.";
 
                             }
 
@@ -290,7 +308,7 @@
                             else{
 
                                 respuesta =
-                                    "Lo siento 🌱, todavía estoy aprendiendo sobre ese tema. Puedes preguntarme sobre riego, cactus, flores, fertilizantes, plagas, iluminación y cuidados de plantas.";
+                                    "Lo siento, todavía estoy aprendiendo sobre ese tema. Puedes preguntarme sobre riego, cactus, flores, fertilizantes, plagas, iluminación y cuidados de plantas.";
                             }
                         }
                     %>
@@ -327,8 +345,7 @@
 
                         <div class="bubble">
 
-                            ¡Hola! 🌿
-                            Soy el asistente IA de Flower Garden.
+                            ¡Hola! Soy el asistente IA de Flower Garden.
                             ¿En qué puedo ayudarte hoy?
 
                         </div>
@@ -344,11 +361,7 @@
                 <form action="AsistenteIA.jsp"
                       method="post"
                       class="chat-form">
-                    
-                    <input type="hidden"
-                        name="nombre"
-                        value="<%=request.getParameter("nombre")%>">
-                    
+
                     <input type="text"
                            name="pregunta"
                            placeholder="Escribe tu pregunta..."
@@ -365,12 +378,14 @@
             </section>
 
         </main>
-        <a href="PerfilCliente.jsp?nombre=<%=request.getParameter("nombre")%>" 
-           accesskey=""class="btn-regresar">
+
+        <a href="PerfilCliente.jsp"
+           class="btn-regresar">
 
             ⬅ Volver al Perfil
 
         </a>
+
         <footer>
 
             &COPY; Flower Garden - Gestión de plantas y jardinería
