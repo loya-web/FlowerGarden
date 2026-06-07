@@ -3,46 +3,47 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Comprar.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Login.css</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarVendedor.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarCliente.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/nbproject/project.properties</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Carrito.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/login.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/WEB-INF/web.xml</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/EscribirResena.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/Conectadita/Conexion.java</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/BorrarCliente.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/AnalisisVentas.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/nbproject/build-impl.xml</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Catalogo.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/index.html</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/InicioSesion.css</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/org/Logout.java</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/EliminarProducto.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/PerfilCliente.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CatalogoVendedor.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CambioVendedor.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/META-INF/CONTEXT.XML</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Carrito2.css</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarEstadoVenta.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/nbproject/project.xml</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Catalogo2.css</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/GuardarResena.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/BajaCliente.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/RegistroCliente.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/ConsultarVentas.css</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/EliminarProducto.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Seguro.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CambioCliente.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ConsultarVentas.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarCliente.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/PerfilCliente.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/RegistroCliente.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/nbproject/PROJECT.XML</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/EscribirResena.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Login.css</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/Imagenes/Maceta.png</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ConsultarResenas.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/controlador/LoginServlet.java</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/PerfilVendedor.jsp</file>
-            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/AsistenteIA.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/login.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarVendedor.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Catalogo.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/GuardarProducto.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Comprar.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/nbproject/project.properties</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/RegistrarProducto.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/InicioSesion.css</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/GuardarResena.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CambioCliente.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/Conectadita/Conexion.java</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/AnalisisVentas.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/WEB-INF/WEB.XML</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CambioVendedor.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/index.html</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Catalogo2.css</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CatalogoVendedor.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarEstadoVenta.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/BajaCliente.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/controlador/LoginServlet.java</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ConsultarVentas.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/org/Logout.java</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/nbproject/build-impl.xml</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Carrito.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/RegistroCliente.html</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/AsistenteIA.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/META-INF/CONTEXT.XML</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/BorrarCliente.jsp</file>
         </group>
     </open-files>
 </project-private>
