@@ -21,89 +21,102 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
+<head>
 
-        <meta http-equiv="Content-Type"
-              content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
 
-        <title>Registrar Producto</title>
+    <title>Registrar Producto</title>
 
-        <link href="../CSS/RegistroProducto.css"
-              rel="stylesheet"
-              type="text/css"/>
+    <link href="../CSS/RegistroProducto.css"
+          rel="stylesheet"
+          type="text/css"/>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <main>
+<main>
 
-            <section>
+    <section>
 
-                <p>Registro de Producto</p>
+        <p>Registro de Producto</p>
 
-                <form action="GuardarProducto.jsp"
-                      method="post">
+        <form action="<%=request.getContextPath()%>/SubirProductoServlet"
+            method="post"
+            enctype="multipart/form-data">
 
-                    <label for="nombre">
-                        Nombre de producto:
-                    </label>
+            <label for="nombre">
+                Nombre de producto:
+            </label>
 
-                    <input type="text"
-                           name="nombre"
-                           id="nombre"
-                           required>
+            <input type="text"
+                   name="nombre"
+                   id="nombre"
+                   required>
 
-                    <br>
+            <br>
 
-                    <label for="precio">
-                        Precio:
-                    </label>
+            <label for="precio">
+                Precio:
+            </label>
 
-                    <input type="number"
-                           step="0.01"
-                           min="0"
-                           name="precio"
-                           id="precio"
-                           required>
+            <input type="number"
+                   step="0.01"
+                   min="0"
+                   name="precio"
+                   id="precio"
+                   required>
 
-                    <br>
+            <br>
 
-                    <label for="descripcion">
-                        Descripción:
-                    </label>
+            <label for="descripcion">
+                Descripción:
+            </label>
 
-                    <textarea name="descripcion"
-                              id="descripcion"
-                              required></textarea>
+            <textarea name="descripcion"
+                      id="descripcion"
+                      required></textarea>
 
-                    <br>
+            <br>
 
-                    <button type="submit">
+            <label for="imagen">
+                Imagen:
+            </label>
 
-                        Registrar Producto
+            <input type="file"
+                   name="imagen"
+                   id="imagen"
+                   accept="image/*"
+                   required>
 
-                    </button>
+            <br>
 
-                </form>
+            <button type="submit">
 
-            </section>
+                Registrar Producto
 
-        </main>
+            </button>
 
-        <a href="PerfilVendedor.jsp"
-           class="btn-regresar">
+        </form>
 
-            ⬅ Volver al Perfil
+    </section>
 
-        </a>
+</main>
 
-        <footer>
+<a href="PerfilVendedor.jsp"
+   class="btn-regresar">
 
-            &COPY; Flower Garden - Gestión de plantas y jardinería
+    ⬅ Volver al Perfil
 
-        </footer>
+</a>
 
-    </body>
+<footer>
+
+    &COPY; Flower Garden - Gestión de plantas y jardinería
+
+</footer>
+
+</body>
 
 </html>

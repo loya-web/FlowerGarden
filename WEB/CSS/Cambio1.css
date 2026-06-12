@@ -340,3 +340,70 @@ footer{
 
     box-shadow:0 14px 30px rgba(19,50,35,0.25);
 }
+
+.password-container{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    width:100%;
+}
+
+.password-container input{
+
+    flex:1;
+
+    width:auto;
+}
+
+.toggle-password{
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--green-500);
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:0;
+
+    margin:0;
+
+    flex-shrink:0;
+
+    transition:0.2s;
+}
+
+.toggle-password:hover{
+
+    background:var(--green-700);
+
+    transform:none;
+}
+
+.password-help{
+
+    margin-top:6px;
+
+    color:#607064;
+
+    font-size:0.82rem;
+
+    line-height:1.4;
+}

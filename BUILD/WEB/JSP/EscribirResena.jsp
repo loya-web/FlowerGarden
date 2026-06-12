@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Conectadita.Conexion"%>
+<%@page import="java.sql.*"%>
 
 <%
     String usuarioSesion =
@@ -14,6 +16,54 @@
 
     if(!"CLIENTE".equals(rol)){
         response.sendRedirect("../index.html");
+        return;
+    }
+
+    int idProducto =
+            Integer.parseInt(
+                    request.getParameter("idProducto")
+            );
+
+    String producto = "";
+    double precio = 0;
+
+    Connection con = null;
+
+    try{
+
+        con = Conexion.conectar();
+
+        PreparedStatement st =
+                con.prepareStatement(
+                        "SELECT producto, precio " +
+                        "FROM Catalogo " +
+                        "WHERE idProducto = ?"
+                );
+
+        st.setInt(1, idProducto);
+
+        ResultSet rs =
+                st.executeQuery();
+
+        if(rs.next()){
+
+            producto =
+                    rs.getString("producto");
+
+            precio =
+                    rs.getDouble("precio");
+
+        }else{
+
+            response.sendRedirect("Catalogo.jsp");
+            return;
+        }
+
+    }catch(Exception e){
+
+        e.printStackTrace();
+
+        response.sendRedirect("Catalogo.jsp");
         return;
     }
 %>
@@ -35,21 +85,6 @@
 </head>
 
 <body>
-
-<%
-    int idProducto =
-            Integer.parseInt(
-                    request.getParameter("idProducto")
-            );
-
-    String producto =
-            request.getParameter("producto");
-
-    double precio =
-            Double.parseDouble(
-                    request.getParameter("precio")
-            );
-%>
 
 <main>
 
@@ -75,8 +110,12 @@
 
         </div>
 
-        <form action="GuardarResena.jsp?idProducto=<%=idProducto%>"
+        <form action="GuardarResena.jsp"
               method="post">
+
+            <input type="hidden"
+                   name="idProducto"
+                   value="<%=idProducto%>">
 
             <label>Calificación</label>
 

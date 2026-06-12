@@ -306,3 +306,52 @@ footer{
     display:flex;
     flex-direction:column;
 }
+
+.password-container{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.password-container input{
+
+    flex:1;
+
+    height:52px;
+}
+
+.toggle-password{
+
+    width:52px;
+
+    height:52px;
+
+    margin:0;
+
+    padding:0;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#4cc86f;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    line-height:1;
+
+    flex-shrink:0;
+
+    position:relative;
+
+    top:0;
+}

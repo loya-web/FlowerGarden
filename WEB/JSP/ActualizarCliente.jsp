@@ -22,16 +22,38 @@
     Integer idUsuario =
             (Integer) session.getAttribute("idUsuario");
 
-    String nombre = request.getParameter("nombre");
-    String apat = request.getParameter("ap");
-    String amat = request.getParameter("am");
-    String correo = request.getParameter("correo");
-    String cel = request.getParameter("toc");
-    String est = request.getParameter("est");
-    String cd = request.getParameter("cd");
-    String col = request.getParameter("col");
-    String calle = request.getParameter("calle");
-    String cp = request.getParameter("cp");
+    String nombre =
+            request.getParameter("nombre");
+
+    String apat =
+            request.getParameter("ap");
+
+    String amat =
+            request.getParameter("am");
+
+    String correo =
+            request.getParameter("correo");
+
+    String cel =
+            request.getParameter("toc");
+
+    String pwd =
+            request.getParameter("pwd");
+
+    String est =
+            request.getParameter("est");
+
+    String cd =
+            request.getParameter("cd");
+
+    String col =
+            request.getParameter("col");
+
+    String calle =
+            request.getParameter("calle");
+
+    String cp =
+            request.getParameter("cp");
 
     Connection con = null;
 
@@ -42,21 +64,27 @@
         con.setAutoCommit(false);
 
         // ======================================
-        // 1. ACTUALIZAR USUARIO (LOGIN NAME)
+        // ACTUALIZAR USUARIO
         // ======================================
+
         PreparedStatement stUsuario =
                 con.prepareStatement(
-                    "UPDATE Usuario SET usuario = ? WHERE idUsuario = ?"
+                    "UPDATE Usuario " +
+                    "SET usuario = ?, " +
+                    "contrasena = ? " +
+                    "WHERE idUsuario = ?"
                 );
 
         stUsuario.setString(1, nombre);
-        stUsuario.setInt(2, idUsuario);
+        stUsuario.setString(2, pwd);
+        stUsuario.setInt(3, idUsuario);
 
         stUsuario.executeUpdate();
 
         // ======================================
-        // 2. ACTUALIZAR CLIENTE (PERFIL)
+        // ACTUALIZAR CLIENTE
         // ======================================
+
         PreparedStatement stCliente =
                 con.prepareStatement(
                     "UPDATE Cliente SET " +
@@ -89,37 +117,59 @@
 
         con.commit();
 
-        // actualizar sesión también
-        session.setAttribute("nombre", nombre);
-        session.setAttribute("usuario", nombre);
+        session.setAttribute(
+                "nombre",
+                nombre);
 
+        session.setAttribute(
+                "usuario",
+                nombre);
 %>
 
 <script>
+
     alert("¡Datos actualizados correctamente!");
-    window.location.href = "../JSP/PerfilCliente.jsp";
+
+    window.location.href =
+            "../JSP/PerfilCliente.jsp";
+
 </script>
 
 <%
+
     } catch (Exception e) {
 
         if (con != null) {
+
             try {
+
                 con.rollback();
+
             } catch (SQLException ex) {
+
                 ex.printStackTrace();
             }
         }
 
-        out.print("Error: " + e.getMessage());
+        out.print(
+                "Error: "
+                + e.getMessage()
+        );
+
         e.printStackTrace();
 
     } finally {
+
         if (con != null) {
+
             try {
+
                 con.setAutoCommit(true);
+
                 con.close();
+
             } catch (SQLException e) {
+
                 e.printStackTrace();
             }
         }

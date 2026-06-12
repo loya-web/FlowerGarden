@@ -27,9 +27,11 @@
 
     PreparedStatement sta =
             con.prepareStatement(
-                "SELECT * " +
-                "FROM Vendedor " +
-                "WHERE Usuario_idUsuario = ?"
+                "SELECT V.*, U.contrasena " +
+                "FROM Vendedor V " +
+                "INNER JOIN Usuario U " +
+                "ON U.idUsuario = V.Usuario_idUsuario " +
+                "WHERE V.Usuario_idUsuario = ?"
             );
 
     sta.setInt(1, idUsuario);
@@ -80,6 +82,7 @@
                    name="nombre"
                    id="nombre"
                    value="<%=rs.getString("nombre")%>"
+                   readonly
                    required>
 
         </div>
@@ -94,6 +97,7 @@
                    name="ap"
                    id="ap"
                    value="<%=rs.getString("appat")%>"
+                   readonly
                    required>
 
         </div>
@@ -108,6 +112,7 @@
                    name="am"
                    id="am"
                    value="<%=rs.getString("apmat")%>"
+                   readonly
                    required>
 
         </div>
@@ -139,7 +144,58 @@
                    required>
 
         </div>
+        <div class="campo">
+            <label for="clabe">
+                CLABE:
+            </label>
+            <input type="text"
+                name="clabe"
+                id="clabe"
+                maxlength="18"
+                pattern="[0-9]{18}"
+                title="La CLABE debe contener 18 dígitos"
+                value="<%=rs.getString("clabe")%>"
+                required>
+        </div>
 
+        <div class="campo">
+            <label for="entidadFinanciera">
+                Entidad Financiera:
+            </label>
+            <input type="text"
+                   name="entidadFinanciera"
+                   id="entidadFinanciera"
+                   value="<%=rs.getString("entidadFinanciera")%>"
+                   required>
+        </div>
+        
+        <div class="campo">
+            <label for="pwd">
+                Contraseña:
+            </label>
+            <div class="password-container">
+                <input type="password"
+                       name="pwd"
+                       id="pwd"
+                       value="<%=rs.getString("contrasena")%>"
+                       maxlength="50"
+                       pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$"
+                       title="La contraseña debe tener mínimo 8 caracteres, una mayúscula, un número y un carácter especial."
+                       required>
+                <button type="button"
+                        class="toggle-password"
+                        onclick="togglePassword()">
+
+                    👁
+
+                </button>
+            </div>
+            <small>
+                Mínimo 8 caracteres, una mayúscula,
+                un número y un carácter especial.
+            </small>
+        </div>  
+                       
         <button type="submit">
 
             Cambiar Datos
@@ -164,6 +220,25 @@
     &COPY; Flower Garden - Gestión de plantas y jardinería
 
 </footer>
+                       
+<script>
+
+function togglePassword(){
+
+    const campo =
+            document.getElementById("pwd");
+
+    if(campo.type === "password"){
+
+        campo.type = "text";
+
+    }else{
+
+        campo.type = "password";
+    }
+}
+
+</script>
 
 </body>
 </html>

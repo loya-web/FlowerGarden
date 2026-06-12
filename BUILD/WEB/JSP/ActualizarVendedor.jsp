@@ -37,6 +37,42 @@
     String cel =
             request.getParameter("toc");
 
+    String clabe =
+            request.getParameter("clabe");
+
+    String entidadFinanciera =
+            request.getParameter(
+                    "entidadFinanciera"
+            );
+
+    String pwd =
+            request.getParameter("pwd");
+
+    // ==========================
+    // VALIDAR CONTRASEÑA
+    // ==========================
+
+    if(!pwd.matches(
+            "^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$"
+        )){
+
+%>
+
+<script>
+
+    alert(
+        "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial."
+    );
+
+    history.back();
+
+</script>
+
+<%
+
+        return;
+    }
+
     Connection con = null;
 
     try{
@@ -52,12 +88,14 @@
         PreparedStatement stUsuario =
                 con.prepareStatement(
                     "UPDATE Usuario " +
-                    "SET usuario = ? " +
+                    "SET usuario = ?, " +
+                    "contrasena = ? " +
                     "WHERE idUsuario = ?"
                 );
 
         stUsuario.setString(1, nombre);
-        stUsuario.setInt(2, idUsuario);
+        stUsuario.setString(2, pwd);
+        stUsuario.setInt(3, idUsuario);
 
         stUsuario.executeUpdate();
 
@@ -72,7 +110,9 @@
                     "celular = ?, " +
                     "appat = ?, " +
                     "apmat = ?, " +
-                    "nombre = ? " +
+                    "nombre = ?, " +
+                    "clabe = ?, " +
+                    "entidadFinanciera = ? " +
                     "WHERE Usuario_idUsuario = ?"
                 );
 
@@ -81,7 +121,9 @@
         stVendedor.setString(3, apat);
         stVendedor.setString(4, amat);
         stVendedor.setString(5, nombre);
-        stVendedor.setInt(6, idUsuario);
+        stVendedor.setString(6, clabe);
+        stVendedor.setString(7, entidadFinanciera);
+        stVendedor.setInt(8, idUsuario);
 
         stVendedor.executeUpdate();
 
@@ -106,6 +148,7 @@
 </script>
 
 <%
+
     }catch(Exception e){
 
         if(con != null){
@@ -134,6 +177,7 @@
             try{
 
                 con.setAutoCommit(true);
+
                 con.close();
 
             }catch(SQLException e){

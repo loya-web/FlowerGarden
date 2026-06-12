@@ -28,6 +28,36 @@
     Connection con =
             Conexion.conectar();
 
+    String nombreVendedor = "";
+    String appatVendedor = "";
+    String apmatVendedor = "";
+    String clabeVendedor = "";
+    String bancoVendedor = "";
+
+    PreparedStatement stVendedor =
+            con.prepareStatement(
+                "SELECT nombre, appat, apmat, clabe, entidadFinanciera " +
+                "FROM Vendedor " +
+                "LIMIT 1"
+            );
+
+    ResultSet rsVendedor =
+            stVendedor.executeQuery();
+
+    if(rsVendedor.next()){
+        nombreVendedor = rsVendedor.getString("nombre");
+        
+        appatVendedor = rsVendedor.getString("appat");
+        
+        apmatVendedor = rsVendedor.getString("apmat");
+        
+        clabeVendedor =
+                rsVendedor.getString("clabe");
+
+        bancoVendedor =
+                rsVendedor.getString("entidadFinanciera");
+    }
+
     int idCliente = 0;
 
     PreparedStatement stCliente =
@@ -43,6 +73,7 @@
             stCliente.executeQuery();
 
     if(rsCliente.next()){
+
         idCliente =
                 rsCliente.getInt("idCliente");
     }
@@ -58,20 +89,41 @@
 
     st.setInt(1, idCliente);
 
-    ResultSet rs = st.executeQuery();
+    ResultSet rs =
+            st.executeQuery();
 
     if(rs.next()){
-        totalVentas = rs.getInt("totalVentas");
+
+        totalVentas =
+                rs.getInt("totalVentas");
     }
 
     int[] idVenta = new int[totalVentas];
     int[] idProducto = new int[totalVentas];
-    String[] producto = new String[totalVentas];
-    double[] precio = new double[totalVentas];
-    String[] descripcion = new String[totalVentas];
-    String[] fechaVenta = new String[totalVentas];
-    String[] estadoPago = new String[totalVentas];
-    String[] estadoEntrega = new String[totalVentas];
+
+    String[] producto =
+            new String[totalVentas];
+
+    String[] descripcion =
+            new String[totalVentas];
+
+    String[] imagen =
+            new String[totalVentas];
+
+    double[] precio =
+            new double[totalVentas];
+
+    String[] fechaVenta =
+            new String[totalVentas];
+
+    String[] estadoPago =
+            new String[totalVentas];
+
+    String[] estadoEntrega =
+            new String[totalVentas];
+
+    String[] tipoPago =
+            new String[totalVentas];
 
     double total = 0;
 
@@ -81,9 +133,11 @@
             "Catalogo.producto, " +
             "Catalogo.precio, " +
             "Catalogo.descripcion, " +
+            "Catalogo.imagen, " +
             "Ventas.fechaVenta, " +
             "Ventas.estadoPago, " +
-            "Ventas.estadoEntrega " +
+            "Ventas.estadoEntrega, " +
+            "Ventas.tipoPago " +
             "FROM Ventas " +
             "INNER JOIN Catalogo " +
             "ON Catalogo.idProducto = Ventas.Catalogo_idProducto " +
@@ -117,6 +171,9 @@
             descripcion[i] =
                     res.getString("descripcion");
 
+            imagen[i] =
+                    res.getString("imagen");
+
             fechaVenta[i] =
                     res.getString("fechaVenta");
 
@@ -125,6 +182,9 @@
 
             estadoEntrega[i] =
                     res.getString("estadoEntrega");
+
+            tipoPago[i] =
+                    res.getString("tipoPago");
 
             total += precio[i];
         }
@@ -221,10 +281,8 @@
 
             <div class="product-image">
 
-                <img src="../Imagenes/Maceta.png"
-                     alt="Producto"
-                     width="90"
-                     height="90"/>
+                <img src="../ImagenesProductos/<%= imagen[j] %>"
+                     alt="<%= producto[j] %>">
 
             </div>
 
@@ -283,6 +341,50 @@
                         <p><%= estadoEntrega[j] %></p>
 
                     </div>
+
+                </div>
+
+                <div class="payment-container">
+
+                    <div class="payment-box">
+
+                        <h4>Método de Pago</h4>
+
+                        <p>
+                            <%= tipoPago[j] %>
+                        </p>
+
+                    </div>
+
+                    <%
+                        if("TRANSFERENCIA".equalsIgnoreCase(tipoPago[j])){
+                    %>
+
+                    <div class="transfer-box">
+
+                        <h4>
+                            Datos para Transferencia
+                        </h4>
+                        
+                        <p>
+                            <strong>Beneficiario:</strong>
+                            <%=nombreVendedor%> <%=appatVendedor%> <%=apmatVendedor%>
+                        </p>
+                        <p>
+                            <strong>Banco:</strong>
+                            <%= bancoVendedor %>
+                        </p>
+
+                        <p>
+                            <strong>CLABE:</strong>
+                            <%= clabeVendedor %>
+                        </p>
+
+                    </div>
+
+                    <%
+                        }
+                    %>
 
                 </div>
 

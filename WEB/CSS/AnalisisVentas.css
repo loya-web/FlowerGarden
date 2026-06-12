@@ -228,3 +228,46 @@ footer{
 
     box-shadow:0 14px 30px rgba(19,50,35,0.25);
 }
+
+/* ==========================
+   GRÁFICAS
+   ========================== */
+
+.charts-section{
+
+    margin-top:2rem;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(420px,1fr));
+
+    gap:2rem;
+}
+
+.chart-card{
+
+    background:rgba(255,255,255,0.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:28px;
+
+    padding:2rem;
+
+    box-shadow:var(--shadow);
+}
+
+.chart-card h3{
+
+    text-align:center;
+
+    color:var(--green-700);
+
+    margin-bottom:1rem;
+}
+
+.chart-card canvas{
+
+    max-height:350px;
+}

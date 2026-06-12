@@ -18,23 +18,6 @@
         response.sendRedirect("../index.html");
         return;
     }
-%>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Compra</title>
-</head>
-
-<body>
-
-<%
-try{
-
-    Integer idUsuario =
-            (Integer) session.getAttribute("idUsuario");
 
     int idProducto =
             Integer.parseInt(
@@ -44,60 +27,131 @@ try{
     Connection con =
             Conexion.conectar();
 
-    int idCliente = 0;
-
-    PreparedStatement stCliente =
-            con.prepareStatement(
-                    "SELECT idCliente " +
-                    "FROM Cliente " +
-                    "WHERE Usuario_idUsuario = ?"
-            );
-
-    stCliente.setInt(1, idUsuario);
-
-    ResultSet rsCliente =
-            stCliente.executeQuery();
-
-    if(rsCliente.next()){
-        idCliente =
-                rsCliente.getInt("idCliente");
-    }
+    String producto = "";
+    double precio = 0;
+    String descripcion = "";
 
     PreparedStatement st =
             con.prepareStatement(
-                    "INSERT INTO Ventas " +
-                    "(Catalogo_idProducto, Cliente_idCliente) " +
-                    "VALUES (?, ?)"
+                    "SELECT producto, precio, descripcion " +
+                    "FROM Catalogo " +
+                    "WHERE idProducto = ?"
             );
 
     st.setInt(1, idProducto);
-    st.setInt(2, idCliente);
 
-    st.executeUpdate();
+    ResultSet rs =
+            st.executeQuery();
+
+    if(rs.next()){
+        producto =
+                rs.getString("producto");
+
+        precio =
+                rs.getDouble("precio");
+
+        descripcion =
+                rs.getString("descripcion");
+    }
 %>
 
-<script>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Confirmar Compra</title>
 
-    alert("¡Compra realizada correctamente!");
+        <link href="../CSS/Catalogo2.css"
+              rel="stylesheet"
+              type="text/css"/>
+    </head>
 
-    window.location.href =
-            "PerfilCliente.jsp";
+    <body>
 
-</script>
+        <header>
+            <nav>
+                <img src="../Imagenes/Flor.png"
+                     alt="Logo"
+                     width="50"
+                     height="50"/>
 
-<%
+                <a href="Catalogo.jsp">
+                    <img src="../Imagenes/Salida.png"
+                         alt="Regresar"
+                         width="50"
+                         height="50"/>
+                </a>
+            </nav>
+        </header>
 
-}catch(Exception e){
+        <main>
 
-    e.printStackTrace();
+            <section>
 
-    out.println(
-            "<h2>Error: "
-            + e.getMessage()
-            + "</h2>"
-    );
-}
-%>
+                <div>
 
-</body>
+                    <p>ID: <%=idProducto%></p>
+
+                    <p><%=producto%></p>
+
+                    <p>$<%=precio%></p>
+
+                    <p><%=descripcion%></p>
+
+                    <form action="ConfirmarCompra.jsp"
+                          method="post">
+
+                        <input type="hidden"
+                               name="idProducto"
+                               value="<%=idProducto%>">
+
+                        <label>
+                            Método de pago:
+                        </label>
+
+                        <br><br>
+
+                        <select name="tipoPago"
+                                required
+                                style="
+                                width:100%;
+                                padding:12px;
+                                border-radius:10px;
+                                border:1px solid #ccc;
+                                margin-bottom:20px;">
+
+                            <option value="">
+                                Seleccione una opción
+                            </option>
+
+                            <option value="EFECTIVO">
+                                Efectivo
+                            </option>
+
+                            <option value="TRANSFERENCIA">
+                                Transferencia bancaria
+                            </option>
+
+                        </select>
+
+                        <button type="submit">
+                            Confirmar compra
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
+        <a href="PerfilCliente.jsp"
+            class="btn-regresar">
+             ⬅ Volver al Perfil
+         </a>
+        <footer>
+            &COPY; Flower Garden - Gestión de plantas y jardinería
+        </footer>
+
+    </body>
 </html>

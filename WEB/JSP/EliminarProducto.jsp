@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@page import="java.io.File"%>
 <%@page import="Conectadita.Conexion"%>
 
 <%
@@ -22,11 +23,14 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8">
 
     <title>Eliminar Producto</title>
+
 </head>
 
 <body>
@@ -37,10 +41,53 @@
                     request.getParameter("idProducto")
             );
 
+    Connection con = null;
+
     try{
 
-        Connection con =
+        con =
                 Conexion.conectar();
+
+        String nombreImagen = null;
+
+        PreparedStatement stImagen =
+                con.prepareStatement(
+                        "SELECT imagen " +
+                        "FROM Catalogo " +
+                        "WHERE idProducto = ?"
+                );
+
+        stImagen.setInt(1, idProducto);
+
+        ResultSet rsImagen =
+                stImagen.executeQuery();
+
+        if(rsImagen.next()){
+
+            nombreImagen =
+                    rsImagen.getString("imagen");
+        }
+
+        if(nombreImagen != null &&
+           !nombreImagen.trim().equals("")){
+
+            String rutaImagenes =
+                    application.getRealPath(
+                            "/ImagenesProductos"
+                    );
+
+            File archivoImagen =
+                    new File(
+                            rutaImagenes
+                            + File.separator
+                            + nombreImagen
+                    );
+
+            if(archivoImagen.exists()){
+
+                archivoImagen.delete();
+            }
+        }
 
         PreparedStatement sta1 =
                 con.prepareStatement(
@@ -75,19 +122,36 @@
 
 <script>
 
-    alert("¡Producto eliminado!");
+    alert("¡Producto eliminado correctamente!");
 
     window.location.href =
-            "PerfilVendedor.jsp";
+            "CatalogoVendedor.jsp";
 
 </script>
 
 <%
+
     }catch(Exception e){
 
-        out.print(e.getMessage());
+        e.printStackTrace();
+
+        out.print(
+                "Error: " + e.getMessage()
+        );
+
+    }finally{
+
+        if(con != null){
+
+            try{
+
+                con.close();
+
+            }catch(Exception e){}
+        }
     }
 %>
 
 </body>
+
 </html>

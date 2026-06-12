@@ -338,3 +338,27 @@ footer{
 
     box-shadow:0 14px 30px rgba(19,50,35,0.25);
 }
+
+.producto-img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    margin-bottom:12px;
+
+    background:#f5f5f5;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+    transition:0.25s;
+}
+
+section div:hover .producto-img{
+
+    transform:scale(1.02);
+}

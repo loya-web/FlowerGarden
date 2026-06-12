@@ -22,7 +22,9 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8">
 
@@ -31,6 +33,7 @@
     <link href="../CSS/Catalogo2.css"
           rel="stylesheet"
           type="text/css"/>
+
 </head>
 
 <body>
@@ -64,101 +67,53 @@
 <section>
 
 <%
-    Integer idUsuario =
-            (Integer) session.getAttribute("idUsuario");
-
-    int idVendedor = 0;
-
     Connection con =
             Conexion.conectar();
 
-    PreparedStatement stVend =
-            con.prepareStatement(
-                    "SELECT idVendedor " +
-                    "FROM Vendedor " +
-                    "WHERE Usuario_idUsuario = ?"
-            );
-
-    stVend.setInt(1, idUsuario);
-
-    ResultSet rsVend =
-            stVend.executeQuery();
-
-    if(rsVend.next()){
-        idVendedor =
-                rsVend.getInt("idVendedor");
-    }
-
-    int totalProductos = 0;
-
     PreparedStatement st =
             con.prepareStatement(
-                    "SELECT COUNT(*) AS totalProductos " +
+                    "SELECT idProducto, " +
+                    "producto, " +
+                    "precio, " +
+                    "descripcion, " +
+                    "imagen " +
                     "FROM Catalogo"
             );
 
     ResultSet rs =
             st.executeQuery();
 
-    if(rs.next()){
-        totalProductos =
-                rs.getInt("totalProductos");
-    }
-
-    int[] idProducto =
-            new int[totalProductos];
-
-    String[] producto =
-            new String[totalProductos];
-
-    double[] precio =
-            new double[totalProductos];
-
-    String[] descripcion =
-            new String[totalProductos];
-
-    PreparedStatement st2 =
-            con.prepareStatement(
-                    "SELECT idProducto, producto, precio, descripcion " +
-                    "FROM Catalogo"
-            );
-
-    ResultSet res =
-            st2.executeQuery();
-
-    for(int i=0;i<totalProductos;i++){
-
-        if(res.next()){
-
-            idProducto[i] =
-                    res.getInt("idProducto");
-
-            producto[i] =
-                    res.getString("producto");
-
-            precio[i] =
-                    res.getDouble("precio");
-
-            descripcion[i] =
-                    res.getString("descripcion");
-        }
-    }
-
-    for(int j=0;j<totalProductos;j++){
+    while(rs.next()){
 %>
 
 <div>
 
-    <p>Id: <%=idProducto[j]%></p>
+    <img class="producto-img"
+         src="../ImagenesProductos/<%= rs.getString("imagen") %>"
+         alt="<%= rs.getString("producto") %>">
 
-    <p>Nombre: <%=producto[j]%></p>
+    <p>
+        Id: <%= rs.getInt("idProducto") %>
+    </p>
 
-    <p>Precio: $<%=precio[j]%></p>
+    <p>
+        Nombre: <%= rs.getString("producto") %>
+    </p>
 
-    <p><%=descripcion[j]%></p>
+    <p>
+        Precio: $<%= rs.getDouble("precio") %>
+    </p>
+
+    <p>
+        <%= rs.getString("descripcion") %>
+    </p>
 
     <form action="EliminarProducto.jsp"
           method="post">
+
+        <input type="hidden"
+               name="idProducto"
+               value="<%= rs.getInt("idProducto") %>">
 
         <button type="submit">
 
@@ -168,8 +123,12 @@
 
     </form>
 
-    <form action="ConsultarResenas.jsp?idProducto=<%=idProducto[j]%>"
+    <form action="ConsultarResenas.jsp"
           method="post">
+
+        <input type="hidden"
+               name="idProducto"
+               value="<%= rs.getInt("idProducto") %>">
 
         <button type="submit">
 
@@ -203,4 +162,5 @@
 </footer>
 
 </body>
+
 </html>

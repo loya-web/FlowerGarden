@@ -16,8 +16,11 @@
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/Imagenes/Maceta.png</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ConsultarResenas.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/PerfilVendedor.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/AnalisisVentas.css</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Cambio1.css</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/login.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ActualizarVendedor.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/ConfirmarCompra.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Catalogo.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/GuardarProducto.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/Comprar.jsp</file>
@@ -25,6 +28,7 @@
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/RegistrarProducto.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/InicioSesion.css</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/GuardarResena.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/CSS/Registro2.css</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/CambioCliente.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/Conectadita/Conexion.java</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/AnalisisVentas.jsp</file>
@@ -44,6 +48,7 @@
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/AsistenteIA.jsp</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/META-INF/CONTEXT.XML</file>
             <file>file:/E:/FlowerGarden_Final/FlowerGarden/WEB/JSP/BorrarCliente.jsp</file>
+            <file>file:/E:/FlowerGarden_Final/FlowerGarden/SRC/JAVA/Servlets/SubirProductoServlet.java</file>
         </group>
     </open-files>
 </project-private>

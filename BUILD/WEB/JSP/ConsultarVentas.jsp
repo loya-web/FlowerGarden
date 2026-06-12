@@ -60,15 +60,16 @@
     }
 
     String sql =
-            "SELECT idVentas, producto, precio, descripcion, " +
+            "SELECT idVentas, producto, precio, descripcion, imagen, " +
             "nombre, appat, apmat, email, celular, " +
             "estado, ciudad, colonia, calle, cp, " +
-            "fechaVenta, estadoPago, estadoEntrega " +
+            "fechaVenta, estadoPago, estadoEntrega, tipoPago " +
             "FROM Ventas " +
             "INNER JOIN Catalogo " +
             "ON Catalogo.idProducto = Ventas.Catalogo_idProducto " +
             "INNER JOIN Cliente " +
-            "ON Cliente.idCliente = Ventas.Cliente_idCliente";
+            "ON Cliente.idCliente = Ventas.Cliente_idCliente " +
+            "ORDER BY Ventas.fechaVenta DESC";
 
     PreparedStatement st2 =
             con.prepareStatement(sql);
@@ -128,23 +129,38 @@
 
 <div class="sale-card">
 
-    <div class="top">
+    <div class="sale-header">
 
-        <div>
+        <div class="sale-image">
 
-            <h2>
-                <%= res.getString("producto") %>
-            </h2>
-
-            <p class="sale-id">
-                Venta #<%= res.getInt("idVentas") %>
-            </p>
+            <img src="../ImagenesProductos/<%= res.getString("imagen") %>"
+                 alt="<%= res.getString("producto") %>">
 
         </div>
 
-        <div class="price">
+        <div class="sale-main">
 
-            $ <%= res.getDouble("precio") %>
+            <div class="top">
+
+                <div>
+
+                    <h2>
+                        <%= res.getString("producto") %>
+                    </h2>
+
+                    <p class="sale-id">
+                        Venta #<%= res.getInt("idVentas") %>
+                    </p>
+
+                </div>
+
+                <div class="price">
+
+                    $ <%= res.getDouble("precio") %>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -166,6 +182,16 @@
 
             <p>
                 <%= res.getString("fechaVenta") %>
+            </p>
+
+        </div>
+
+        <div class="info-mini">
+
+            <h4>Tipo de Pago</h4>
+
+            <p class="estado">
+                <%= res.getString("tipoPago") %>
             </p>
 
         </div>
@@ -264,9 +290,9 @@
 
                 <select name="estadoPago">
 
-                    <option>Pagado</option>
-
                     <option>No pagado</option>
+                    
+                    <option>Pagado</option>
 
                 </select>
 

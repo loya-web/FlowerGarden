@@ -27,7 +27,11 @@
 
     PreparedStatement sta =
             con.prepareStatement(
-                "SELECT * FROM Cliente WHERE Usuario_idUsuario = ?"
+                "SELECT C.*, U.contrasena " +
+                "FROM Cliente C " +
+                "INNER JOIN Usuario U " +
+                "ON U.idUsuario = C.Usuario_idUsuario " +
+                "WHERE Usuario_idUsuario = ?"
             );
 
     sta.setInt(1, idUsuario);
@@ -74,6 +78,7 @@
             <input type="text"
                    name="nombre"
                    value="<%=rs.getString("nombre")%>"
+                   readonly
                    required>
 
         </div>
@@ -85,6 +90,7 @@
             <input type="text"
                    name="ap"
                    value="<%=rs.getString("appat")%>"
+                   readonly
                    required>
 
         </div>
@@ -96,6 +102,7 @@
             <input type="text"
                    name="am"
                    value="<%=rs.getString("apmat")%>"
+                   readonly
                    required>
 
         </div>
@@ -119,6 +126,40 @@
                    name="toc"
                    value="<%=rs.getString("celular")%>"
                    required>
+
+        </div>
+                   
+        <div class="campo">
+
+            <label for="pwd">
+                Contraseña:
+            </label>
+
+            <div class="password-container">
+
+                <input type="password"
+                       name="pwd"
+                       id="pwd"
+                       value="<%=rs.getString("contrasena")%>"
+                       maxlength="50"
+                       pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$"
+                       title="La contraseña debe tener mínimo 8 caracteres, una mayúscula, un número y un carácter especial."
+                       required>
+
+                <button type="button"
+                        class="toggle-password"
+                        onclick="togglePassword()">
+
+                    👁
+
+                </button>
+
+            </div>
+
+            <small>
+                Mínimo 8 caracteres, una mayúscula,
+                un número y un carácter especial.
+            </small>
 
         </div>
 
@@ -195,7 +236,24 @@
     ⬅ Volver al Perfil
 
 </a>
+<script>
 
+function togglePassword(){
+
+    const campo =
+            document.getElementById("pwd");
+
+    if(campo.type === "password"){
+
+        campo.type = "text";
+
+    }else{
+
+        campo.type = "password";
+    }
+}
+
+</script>
 </body>
 
 </html>
